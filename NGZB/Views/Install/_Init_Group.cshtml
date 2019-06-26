@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ string str = "组织机构";}
+    <title>《@str》初始化</title>
+    <script>
+        var url = '@Url.Action("__InitGroup", "Install")';
+    </script>
+</head>
+<body>
+    <div style="width:100%;text-align:center">
+        <table style="width:100%;margin-top:30px">
+            <tr>
+                <td colspan="2" style="text-align:center;font-size:16pt;color:blue">
+                    《@str》初始化
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;color:red">
+                    <ul>
+                        <li style="margin:15px 0px">
+                            注意：《@str》初始化后，将删除系统中当前所有的组织机构节点，影响当前已注册的所有用户所属的节点，这个名称可以在系统使用后通过组织机构管理来修改；
+                        </li>
+                        <li style="margin:15px 0px">
+                            请在下框填写一个系统默认的组织机构节点，将已有用户归属到该节点；
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align:center;margin-top:25px">
+            默认组织机构名称：<input id="groupname" class="easyui-textbox" data-options="prompt:'填写默认的组织机构节点名称',required:true" style="width:30%;height:32px">
+        </div>
+        <div style="width:100%;text-align:center;margin-top:25px">
+            <a style="width:20%" href="javascript:;" class="easyui-linkbutton" iconAlign="top" iconCls="icon-my_del" onclick="okActive();">《@str》初始化</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Install/_init_group.js"></script>
+</body>
+</html>

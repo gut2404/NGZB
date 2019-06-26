@@ -1,0 +1,41 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>所有公告</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_getmessage = '@Url.Action("_MessageInfo", "Message",objTokenKey)';
+    </script>
+</head>
+<body style="overflow:hidden;height:100%;">
+        <table id="dgmsg" class="easyui-datagrid" title="内部公告" style="width:100%;border:0px;border-color:white"
+               data-options="@SysController.__PublishTool(),iconCls:'icon-my_bell',fit:true,rownumbers:false,singleSelect:true,striped:true,pagination:true,loadFilter:pagerFilter,pageSize:@SysController.__PageSize(),url: '@Url.Action("__GetMessageAll","Message",objTokenKey)',onLoadSuccess:function(data){formatlinbutton();},fitColumns:true,toolbar:'#tb',border:false">
+            <thead>
+                <tr style="width:100%">
+                    <th data-options="field:'msgTitle',width:600,align:'left'">公告标题</th>
+                    <th field="groupName" width="100" align="center">发布单位</th>
+                    <th field="userName" width="50" align="center">发布人</th>
+                    <th field="msgDate" width="105" align="center" sortable="true">发布时间</th>
+                    <th data-options="field:'msgID',width:50,align:'center',halign:'center',formatter:msginfo">详情</th>
+                </tr>
+            </thead>
+        </table>
+    <div id="tb">
+        <div style="margin:2px">
+            <div class="fa fa-filter mylabel" data-options="plain:true">发布时间从：</div>
+            @Html.Partial("_DateSelect", new ViewDataDictionary { { "id", "st1" }, { "d", "-30" } })
+            <div class="fa fa-filter mylabel" data-options="plain:true">到：</div>
+            @Html.Partial("_DateSelect", ViewData["id"] = "et1")
+            <div class="fa fa-file-text-o mylabel">输入公告标题或者内容关键字：</div>
+            <input id="searchkey" class="easyui-textbox" style="width:200px;height:25px">
+            <a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>
+        </div>
+    </div>
+        @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Message/allmessage.js"></script>
+</body>
+</html>

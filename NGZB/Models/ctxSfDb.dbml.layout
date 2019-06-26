@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ctxSfDb">
+  <DataContextMoniker Name="/ctxSfDbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="e76b1c43-ca42-4e1d-b469-8b23e64791be" absoluteBounds="0.625, 2.5, 2, 1.9068933105468751">
+      <DataClassMoniker Name="/ctxSfDbDataContext/V_NGZB_Harm" />
+      <nestedChildShapes>
+        <elementListCompartment Id="67e33fcc-bb29-46e6-9c98-cefbead9d036" absoluteBounds="0.64, 2.96, 1.9700000000000002, 1.346893310546875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

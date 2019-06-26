@@ -1,0 +1,67 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    <title>用户登录</title>
+</head>
+<body>
+    <div id="dd" title="用户登录" style="text-align:center" data-options="iconCls:'icon-man'">
+        <table style="width:100%;margin-top:15px">
+            <tr>
+                <td style="font-size:10pt;padding-bottom:20px;width:65px;text-align:right;vertical-align:baseline">
+                    用户名：
+                </td>
+                <td style="text-align:left;vertical-align:baseline">
+                    <input id="userCode" class="easyui-textbox" style="width:200px;height:30px;padding:2px" data-options="prompt:'用户名',iconCls:'icon-man',iconWidth:38">
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size:10pt;padding-bottom:20px;width:65px;text-align:right;vertical-align:baseline">
+                    密码：
+                </td>
+                <td style="text-align:left;vertical-align:baseline">
+                    <input id="passWord" class="easyui-textbox" type="password" style="width:200px;height:30px;padding:2px" data-options="prompt:'输入登录密码',iconCls:'icon-lock',iconWidth:38">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width:100%;vertical-align:baseline;color:red">
+                    <input id="lg" class="easyui-switchbutton" name="lg" data-options="onText:'记住',offText:'否'">记住登录 @SysController.__CookiesTime() 天
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width:100%;vertical-align:baseline;padding-top:15px">
+                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-man'" style="width:60px" onclick="sub(url_post);">登录</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var url_post = '@Url.Action("_Login", "Home")';
+        window.onload = function ()
+        {
+            if (window === window.top)
+            {
+                window.location.href = url_post;
+                return;
+            };
+        };
+        $(function ()
+        {
+            $('#dd').dialog({
+                title: '用户登录',
+                width: 320,
+                height: 230,
+                closed: false,
+                cache: false,
+                collapsible: false,
+                resizable: false,
+                modal: true
+            });
+        });
+    </script>
+    <script src="~/JsApp/Home/_login.js"></script>
+</body>
+</html>

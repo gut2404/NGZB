@@ -1,0 +1,13 @@
+﻿@*页面公共工具*@
+@{
+    string modeID = ViewBag.modelID;
+}
+<div id="publishtool">
+    <a href="javascript:;" class="icon-help" style="margin-right:15px" onclick="javascript:getHelp()"></a>
+</div>
+<script>
+    function getHelp()
+    {
+        layer.alert('模块：' + '@modeID' + '的帮助文件还没有写好！');
+    }
+</script>

@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NGZB_db" Class="ctxDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=127.0.0.1;Initial Catalog=NGZB_db;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NGZB_dbConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.I_NGZB_User" Method="I_NGZB_User">
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="userName" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="userPass" Type="System.String" DbType="Char(32)" />
+    <Parameter Name="groupID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_User" Method="U_NGZB_User">
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="userName" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="userPass" Type="System.String" DbType="Char(32)" />
+    <Parameter Name="groupID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZB_Role" Method="D_NGZB_Role">
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Role" Method="I_NGZB_Role">
+    <Parameter Name="roleName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="roleInfo" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZB_Role_Item" Method="D_NGZB_Role_Item">
+    <Parameter Name="roleItemID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Role_User" Method="I_NGZB_Role_User">
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="opUser" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_F_File" Method="I_NGZB_F_File">
+    <Parameter Name="documentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fileName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="fileUrl" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="fileUpUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="fileInfo" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZB_F_File" Method="D_NGZB_F_File">
+    <Parameter Name="fileID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Message" Method="I_NGZB_Message">
+    <Parameter Name="msgtitle" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="msginfo" Type="System.String" DbType="Text" />
+    <Parameter Name="msgusercode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Model" Method="I_NGZB_Model">
+    <Parameter Name="modelControllers" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="modelAction" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZ_F_Document" Method="D_NGZ_F_Document">
+    <Parameter Name="documentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="flag" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_F_Document_M" Method="U_NGZB_F_Document_M">
+    <Parameter Name="documentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="targetID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Menu" Method="I_NGZB_Menu">
+    <Parameter Name="menuParentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="menuType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="menuImg" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="colerCsscClass" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Role_Item" Method="I_NGZB_Role_Item">
+    <Parameter Name="roleID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="menuID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="appendUserCode" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZB_Menu" Method="D_NGZB_Menu">
+    <Parameter Name="menuID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_F_DocumentAllow" Method="I_NGZB_F_DocumentAllow">
+    <Parameter Name="documentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="allowType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_PersonMsg" Method="I_NGZB_PersonMsg">
+    <Parameter Name="msgtitle" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="msgInfo" Type="System.String" DbType="Text" />
+    <Parameter Name="sendUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="recUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="fileUrl" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_Group" Method="I_NGZB_Group">
+    <Parameter Name="groupParentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="groupOrderBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="groupIcon" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_F_Document_S" Method="U_NGZB_F_Document_S">
+    <Parameter Name="documentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_SystemSet" Method="U_NGZB_SystemSet">
+    <Parameter Name="setItme" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="setName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="setValue" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="setInfo" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_F_Document" Method="I_NGZB_F_Document">
+    <Parameter Name="documentParentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="documentName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="documentInfo" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="doucmenyorderby" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_F_Document" Method="U_NGZB_F_Document">
+    <Parameter Name="documentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="documentName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="documentInfo" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="doucmenyorderby" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_MenuGroup" Method="I_NGZB_MenuGroup">
+    <Parameter Name="MenuGroupName" Parameter="menuGroupName" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="menuImg" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_Menu" Method="U_NGZB_Menu">
+    <Parameter Name="menuID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="menuParentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="menuImg" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="menuOrderBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="menuType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="colerCsscClass" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZB_Role_User" Method="D_NGZB_Role_User">
+    <Parameter Name="roleUserID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opUser" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_UserLoginOutType" Method="I_NGZB_UserLoginOutType">
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="actionType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="browerUserHostAddress" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_UserLoginItem" Method="I_NGZB_UserLoginItem">
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="browerType" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="browerBrower" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="browerVersion" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="browerVBScript" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="browerCookies" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="browerActiveXControls" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="browerAOL" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="browerUserHostAddress" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="browerUserHostName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="browerDnsSafeHost" Type="System.Int32" DbType="Int" />
+    <Parameter Name="tokenKey" Type="System.String" DbType="Char(32)" />
+    <Parameter Name="isAutoLogin" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="loginDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_UserOnLine" Method="I_NGZB_UserOnLine">
+    <Parameter Name="userCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="lastOnLineTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="tokenKey" Type="System.String" DbType="Char(32)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.D_NGZB_IconList" Method="D_NGZB_IconList">
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_Model" Method="U_NGZB_Model">
+    <Parameter Name="modelID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="modelName" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="modelInfo" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="homeview" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_Init_Group" Method="C_NGZB_Init_Group">
+    <Parameter Name="groupName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_Init_Menu" Method="C_NGZB_Init_Menu">
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_Init_Model" Method="C_NGZB_Init_Model">
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_Init_Role" Method="C_NGZB_Init_Role">
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_Init_User" Method="C_NGZB_Init_User">
+    <Parameter Name="adminUsercode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="username" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="userpass" Type="System.String" DbType="Char(32)" />
+    <Parameter Name="groupid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_Init_UserRole" Method="C_NGZB_Init_UserRole">
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

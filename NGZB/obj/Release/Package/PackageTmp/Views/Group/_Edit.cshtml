@@ -1,0 +1,46 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑组织节点</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_edit = '@Url.Action("__Edit", "Group", objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="addDiv" style="display:block;padding:10px">
+        <table cellpadding="5">
+            <tr>
+                <td>组织节点ID:</td>
+                <td>
+                    <input id="txtGroupId" style="width:60px" class="easyui-textbox" type="text" name="name" disabled="disabled" value="@ViewBag.groupid" data-options="required:false" />
+                </td>
+            </tr>
+            <tr>
+                <td>组织节点名称:</td>
+                <td><input id="txtGroupName" style="width:160px" class="easyui-textbox" type="text" name="name" value="@ViewBag.groupname" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>图标:</td>
+                <td>
+                    @Html.Partial("_IconSelect", ViewData["w"] = "180")<a class="easyui-linkbutton" data-options="@Html.Raw(ViewBag.icon)" style="float:right">当前</a>
+                </td>
+            </tr>
+            <tr>
+                <td>排序:</td>
+                <td>
+                    <input id="txtOrderby" style="width:60px" class="easyui-textbox" type="text" name="name" value="@ViewBag.orderby" data-options="required:false" />
+                </td>
+            </tr>
+        </table>
+        <div style="text-align:center;padding:15px 5px 5px 5px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="subcchange();">确认修改</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Group/_edit.js"></script>
+</body>
+</html>

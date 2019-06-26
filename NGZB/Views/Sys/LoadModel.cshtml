@@ -1,0 +1,55 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>系统模块管理</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script src="~/Scripts/jquery.edatagrid.js"></script>
+    <script type="text/javascript">
+        var url_editmodelname = '@Url.Action("__EditModelName", "Sys", objTokenKey)';
+        var url_addedithelp = '@Url.Action("_AddEditHelp", "Sys", objTokenKey)';
+    </script>
+</head>
+<body style="width:100%">
+    <table id="tt" style="width:100%;"
+           title="系统模块管理"
+           url="@Url.Action("__GetModel","Sys",objTokenKey)"
+           singleSelect="true"
+           data-options="@SysController.__PublishTool(),iconCls:'icon-my_plugin',fit:true,toolbar:'#tb',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,border:false">
+        <thead>
+            <tr>
+                <th field="modelID" align="center" width="50" data-options="formatter:idformat">模块ID</th>
+                <th field="modelAction" align="center" width="80">视图标识</th>
+                <th field="homeview" align="center" width="60" editor="{type:'checkbox',options:{on:'是',off:'否'}}" data-options="formatter:delformat">桌面显示</th>
+                <th field="modelName" width="80" halign="center" align="left" editor="{type:'validatebox',options:{required:true}}">视图名称</th>
+                <th field="modelInfo" width="300" halign="center" align="left" editor="text">功能描述</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="margin:5px;text-align:center">
+            <div class="fa fa-cubes mylabel">选择控制器：</div>
+            <input id="f" class="easyui-combobox" name="language" style="height:26px;width:120px" data-options="url:'@Url.Action("__GetController", "Sys",objTokenKey)',
+                   method:'get',
+                   valueField:'modelControllers',
+                   textField:'modelControllers',
+                   panelHeight:'auto',onChange:function(newValue,oldValue){search();}
+                   ">
+            <div class="fa fa-file-text-o mylabel">输入Views、视图名称、描述关键字：</div>
+            <input id="searchkey" class="easyui-textbox" style="width:200px;height:25px">
+            <a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>
+        </div>
+    </div>
+    <div id="mm" class="easyui-menu" style="width:120px;">
+        <div onclick="javascript: cancle();" data-options="iconCls:'icon-no'">取消编辑</div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Sys/loadmodel.js"></script>
+</body>
+</html>
+
+<a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>

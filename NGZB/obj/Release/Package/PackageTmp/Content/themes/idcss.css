@@ -1,0 +1,50 @@
+﻿#dg .datagrid-header {
+    position: absolute;
+    visibility: hidden;
+}
+
+#dg .datagrid-body {
+    overflow: hidden;
+}
+
+#ngzb_top {
+    height: 50px;
+    background: #6388B7;
+    padding: 0px 20px 0px 0px;
+    text-align: right;
+    vertical-align:baseline;
+}
+
+#ngzb_menu {
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
+    width: 150px;
+}
+
+#ngzb_foot {
+    height: 20px;
+    padding: 0px;
+    text-align: center;
+    font-size: 12px;
+    background-image: url("images/footback.jpg");
+}
+
+#ngzb_center {
+    padding: 0px;
+    border: none;
+}
+
+#ngzb_accordion {
+    width: 100%;
+    background-color: white;
+    border: none;
+}
+
+#tb {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 20px;
+    height: auto;
+    text-align: center;
+}

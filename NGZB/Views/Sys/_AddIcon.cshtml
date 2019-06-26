@@ -1,0 +1,30 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>上传图标</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script src="~/Scripts/ajaxfileupload.js"></script>
+    <script>
+        var url_upicon = '@Url.Action("__UpIcon", "Sys",objTokenKey)';
+    </script>
+</head>
+<body>
+    <form id="ff" name="ff" action="" method="post" enctype="multipart/form-data">
+        <div style="text-align:center;margin-top:20px">
+            @Html.Partial("_FileSelect", ViewData["ex"] = "'.png'")
+        </div>
+        <div style="text-align:center;margin:10px">
+            <a id="up" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-my_up'" onclick="submitForm()">上传图标</a>
+        </div>
+        <div style="text-align:center;margin:10px">
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-alert'">上传图标（必须png格式16*16大小）,如果文件已存在怎自动从命名</div>
+        </div>
+    </form>
+    <script src="~/JsApp/Sys/_addicon.js"></script>
+</body>
+</html>

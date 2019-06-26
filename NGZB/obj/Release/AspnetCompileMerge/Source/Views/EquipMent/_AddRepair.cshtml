@@ -1,0 +1,99 @@
+﻿@using NGZB.Controllers
+@using NGZB.Models.Object
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();
+        LoginUser loginUser = new LoginUser();
+        var TokenKeyEqID = new { tokenkey = loginUser.Tokenkey, eqid = ViewBag.eqid };
+    }
+    <title>检修标准</title>
+    <script>
+        var url_save = '@Url.Action("__SaveRepair", "EquipMent", objTokenKey)';
+        var url_redo = '@Url.Action("__RepairDelRedo", "EquipMent", objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="p" class="easyui-panel" title="" style="width:100%;margin-bottom:2px;" data-options="@SysController.__PublishTool(),collapsible:false,minimizable:false,maximizable:false,closable:false,fit:true,border:false">
+        <table id="dg" class="easyui-datagrid" title="" data-options="singleSelect:true,collapsible:false,url:'@Url.Action("__RepairStand", "EquipMent",TokenKeyEqID)',method:'get',fit:true,pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,border:false,toolbar:'#tb',onLoadSuccess:function(data){formatlinbutton();},nowrap:false">
+            <thead>
+                <tr>
+                    <th data-options="field:'id',width:60,align:'center'">序号</th>
+                    <th data-options="field:'repairID',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'repairTypeName',width:80,align:'center'">检修类别</th>
+                    <th data-options="field:'repairTypeID',width:1,align:'center',hidden:true"></th>
+
+                    <th data-options="field:'repairNum',width:80,align:'center',formatter:repartimeformat">检修周期</th>
+                    <th data-options="field:'unitName',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'unitID',width:1,align:'center',hidden:true"></th>
+
+                    <th data-options="field:'repairInfo',width:400,halign:'center',align:'left'">检修内容</th>
+                    <th data-options="field:'acceptStand',width:350,halign:'center',align:'left'">验收标准</th>
+
+                    <th data-options="field:'repairTime',width:80,align:'center',formatter:timeformat">检修工期</th>
+                    <th data-options="field:'repairUnitName',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'timeUnitID',width:1,align:'center',hidden:true"></th>
+
+                    <th data-options="field:'isView',width:80,align:'center',formatter:opformat">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="tb">
+        <div style="margin:2px">
+            <table style="width:100%" border="0">
+                <tr>
+                    <td width="100" align="right">
+                        章节标题
+                        <input id="eqid" type="hidden" value="@ViewBag.eqid" />
+                    </td>
+                    <td colspan="5" align="left" valign="baseline">
+                        <input id="repairtitle" class="easyui-textbox" style="width:400px;height:25px" value="@ViewBag.repairtitle"><div class="fa fa-file-text-o mylabel" style="padding-left:5px"><span style="padding-left:2px">该内容对应作业文件的中的小章节标题，最后生产静态文件时将该内容合并进来</span></div>
+                    </td>
+                    <td width="80" rowspan="2" align="center" valign="middle"> <a href="javascript:;" class="easyui-linkbutton toolbtn50" iconAlign="top" iconCls="icon-save" plain="@SysController.__ThemsType()" onclick="saveRepair();">保存</a></td>
+                </tr>
+                <tr>
+                    <td width="100" align="right">检修类别</td>
+                    <td width="180" align="left">
+                        <input class="easyui-combobox" id="repairtypeid" style="width:120px" data-options="url:'@Url.Action("__GetRepairType","EquipMent",objTokenKey)', method:'get', valueField:'id', textField:'text',panelHeight:'auto',multiple:false,editable: false">
+                    </td>
+                    <td width="100" align="right">检修周期</td>
+                    <td width="180" align="left">
+                        <input id="repairtime" class="easyui-textbox" style="width:50px;height:25px">
+                        @Html.Partial("_UnitSelect", ViewData["id"] = "unitselect1")不定期填0
+                    </td>
+                    <td width="100" align="right">检修内容</td>
+                    <td align="left">
+                        <input id="repaitinfo" class="easyui-textbox" style="width:95%;height:25px">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="right">工作耗时</td>
+                    <td colspan="3" align="left">
+                        <input id="worknum" class="easyui-textbox" style="width:50px;height:25px" value="0">
+                        @Html.Partial("_UnitSelect", ViewData["id"] = "unitselect2")
+                        <div class="fa fa-file-text-o mylabel" style="padding-left:5px">
+                            <span style="padding-left:2px">
+                                粗略估算，排检修计划时提供参考，填0则忽略
+                            </span>
+                        </div>
+                    </td>
+                    <td width="100" align="right">验收标准</td>
+                    <td align="left">
+                        <input id="acceptstand" class="easyui-textbox" style="width:95%;height:25px">
+                    </td>
+                    <td width="80" align="center" valign="middle">
+                        <input class="easyui-switchbutton" id="switchbtn" checked="checked" data-options="onText:'新建',offText:'保存'">
+                        <input id="repairid" type="hidden" value="0" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="~/JsApp/EquipMent/_addrepair.js"></script>
+</body>
+</html>

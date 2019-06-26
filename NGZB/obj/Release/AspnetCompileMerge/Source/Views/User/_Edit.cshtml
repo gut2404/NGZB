@@ -1,0 +1,56 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户编辑</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <script src="~/Scripts/jQuery.md5.js"></script>
+    <script>
+        var url_edit = '@Url.Action("__Edit","User", objTokenKey)';
+        var url_pass = '@Url.Action("__Pass", "User", objTokenKey)';
+        var url_passwordredo = '@Url.Action("__PassWordRedo", "User", objTokenKey)';
+    </script>
+</head>
+<body style="text-align:center;width:auto">
+    <div class="easyui-panel" title="编辑用户" style="width:400px" data-options="iconCls:'icon-man'">
+        <div style="padding:10px 60px 10px 60px">
+            <div id="ff" class="easyui-form" data-options="novalidate:true">
+                <table cellpadding="5">
+                    <tr>
+                        <td class="rightTD">登录名:</td>
+                        <td><input id="userCode" class="easyui-textbox" type="text" name="userCode" value="@ViewBag.userCode" disabled="disabled" data-options="required:true,iconCls:'icon-man',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">姓名:</td>
+                        <td><input id="userName" class="easyui-textbox" type="text" name="userName" value="@ViewBag.userName" data-options="required:true,iconCls:'icon-man',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">密码:</td>
+                        <td><input id="password" class="easyui-textbox" type="password" name="passWord" data-options="required:false,iconCls:'icon-lock',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">确认密码:</td>
+                        <td><input id="password2" class="easyui-textbox" type="password" name="passWord2" data-options="required:false,iconCls:'icon-lock',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">部门:</td>
+                        <td>
+                            <input id="cc" value="@ViewBag.GroupID" class="easyui-combotree" data-options="url:'@Url.Action("__Get","Group", objTokenKey)',method:'get',lines:'true',required:true,panelHeight:'auto',iconCls:'icon-my_dpmap',iconAlign:'right'" style="width:150px;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="text-align:center;padding:5px">
+                <a id="ok" href="javascript:void(0)" class="easyui-linkbutton c2" data-options="iconCls:'icon-edit'" onclick="submitForm()">确认编辑</a>
+                <a id="passredo" href="javascript:void(0)" class="easyui-linkbutton c3" data-options="iconCls:'icon-undo'" onclick="redoPass()">重置密码</a>
+            </div>
+            <div>如果密码为空，将不修改，重置密码为111111</div>
+        </div>
+    </div>
+    <script src="~/JsApp/User/_edit.js"></script>
+</body>
+</html>

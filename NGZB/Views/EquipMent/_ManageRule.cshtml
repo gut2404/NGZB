@@ -1,0 +1,112 @@
+﻿@using NGZB.Controllers
+@using NGZB.Models
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <title>作业文件添加、修改</title>
+    <script>
+        var eqid = '@ViewBag.eqid';
+        var url_save = '@Url.Action("__SaveRule","EquipMent",objTokenKey)';
+        var url_daycheck = '@Url.Action("_AddDayCheck", "EquipMent", objTokenKey)';
+        var url_repair = '@Url.Action("_AddRepair", "EquipMent", objTokenKey)';
+        var url_oil = '@Url.Action("_AddOil", "EquipMent", objTokenKey)';
+        var url_debug= '@Url.Action("_AddDebug", "EquipMent", objTokenKey)';
+    </script>
+    <style>
+        td {
+            border-color: black;
+            border: solid;
+            border-width: 1px;
+        }
+    </style>
+</head>
+<body>
+    @{
+        string str1 = "技术类作业文件";
+        string str2 = "操作维护检修规程";
+    }
+    <div class="easyui-panel" title="@ViewBag.optype@str1" style="padding:0px"
+         data-options="fit:true,iconCls:'icon-my_eqedit',closable:false,tools:'#eqruletool'">
+        <div id="tt" class="easyui-tabs" style="width:100%" data-options="fit:true">
+            <div title="作业文件">
+                <table style="width:100%;height:100%">
+                    @{
+                        if (ViewBag.op == 2 && ViewBag.model != null)
+                        {
+                            var OperateRule = (NGZB_EQ_O_OperateRule)ViewBag.model;
+                            <tr style="height:30px">
+                                <td style="width:100px;text-align:center" rowspan="2">
+                                    <img src="~/Content/themes/images/logo.png" alt="公司标志" />
+                                    <input id="oldeqoperateInfo" type="hidden" value="@OperateRule.operateText" />
+                                </td>
+                                <td style="text-align:center">
+                                    <input id="compantitle" class="easyui-textbox" style="width:100%;height:25px;text-align:center" value="@OperateRule.companTitle" data-options="icons:[{iconCls:'icon-clear',handler: function(e){$(e.data.target).textbox('clear');}}]">
+                                </td>
+                                <td style="width:20%;text-align:left">
+                                    编码：<input id="filecode" class="easyui-textbox" style="width:70%;height:25px" value="@OperateRule.operateCode">
+                                </td>
+                                <td rowspan="2" style="width:60px;text-align:center;vertical-align:middle">
+                                    <a href="javascript:;" class="easyui-linkbutton toolbtn50" data-options="iconCls:'icon-save',iconAlign:'top'" onclick="saveRule();">保存</a>
+                                </td>
+                            </tr>
+                            <tr style="height:30px">
+                                <td style="text-align:center">
+                                    <input id="filename" class="easyui-textbox" style="width:100%;height:25px;text-align:center" value="@OperateRule.operateName" data-options="icons:[{iconCls:'icon-clear',handler: function(e){$(e.data.target).textbox('clear');}}]">
+                                </td>
+                                <td style="text-align:left">
+                                    版次：第<input id="filenumber" class="easyui-textbox" style="width:50%;height:25px;text-align:center" value="@OperateRule.operateNumber">版
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="lasttd" colspan="4" style="vertical-align:top">
+                                    @Html.Partial("_SimpleEdit", new ViewDataDictionary { { "id", "eqoperateInfo" }, { "w", "100%" }, { "h", "300px" }, { "t", "0" } })
+                                </td>
+                            </tr>
+                        }
+                        else if (ViewBag.op == 1 && ViewBag.eqmodel != null)
+                        {
+                            var eqmodel = (V_NGZB_EQ_BaseTree)ViewBag.eqmodel;
+                            <tr style="height:30px">
+                                <td style="width:100px;text-align:center" rowspan="2">
+                                    <img src="~/Content/themes/images/logo.png" alt="公司标志" />
+                                    <input id="oldeqoperateInfo" type="hidden" value="" />
+                                </td>
+                                <td style="text-align:center">
+                                    <input id="compantitle" class="easyui-textbox" style="width:100%;height:25px;text-align:center" value="@SysController.__CompanyName()@str1" data-options="icons:[{iconCls:'icon-clear',handler: function(e){$(e.data.target).textbox('clear');}}]">
+                                </td>
+                                <td style="width:20%;text-align:left">
+                                    编码：<input id="filecode" class="easyui-textbox" style="width:200px;height:25px">
+                                </td>
+                                <td rowspan="2" style="width:60px;text-align:center;vertical-align:middle">
+                                    <a href="javascript:;" class="easyui-linkbutton toolbtn50" data-options="iconCls:'icon-save',iconAlign:'bottom'" onclick="saveRule();">保存</a>
+                                </td>
+                            </tr>
+                            <tr style="height:30px">
+                                <td style="text-align:center">
+                                    <input id="filename" class="easyui-textbox" style="width:100%;height:25px;text-align:center" value="@eqmodel.eqName@str2" data-options="icons:[{iconCls:'icon-clear',handler: function(e){$(e.data.target).textbox('clear');}}]">
+                                </td>
+                                <td style="text-align:left">
+                                    版次：第
+                                    <input id="filenumber" class="easyui-textbox" style="width:50%;height:25px;text-align:center" value="1">版
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="lasttd" colspan="4" style="vertical-align:top">
+                                    @Html.Partial("_SimpleEdit", new ViewDataDictionary { { "id", "eqoperateInfo" }, { "w", "100%" }, { "h", "200px" }, { "t", "0" } })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    @{ if (ViewBag.eqid != "")
+        {@Html.Raw(EquipMentController.__EqRuleTool()) }; }
+    <script src="~/JsApp/EquipMent/_managerule.js"></script>
+</body>
+</html>

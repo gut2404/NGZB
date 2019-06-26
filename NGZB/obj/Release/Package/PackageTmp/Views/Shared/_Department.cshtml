@@ -1,0 +1,4 @@
+﻿@*部门选择*@
+@using NGZB.Controllers
+@{ var objTokenKey = SysController.__TokenKey(); }
+<input id="groupID" class="easyui-combotree" data-options="url:'@Url.Action("__Get","Group",objTokenKey)',method:'get',lines:'true',panelHeight:'auto',iconCls:'icon-my_dpmap',iconAlign:'right',required:false,onSelect:function(node){selectDpid(node.id);}" style="width:150px;">

@@ -1,0 +1,66 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <title>设备树管理</title>
+    <script>
+        var url_add = '@Url.Action("_AddEq", "EquipMent", objTokenKey)';
+        var url_edit = '@Url.Action("_EditEq", "EquipMent", objTokenKey)';
+        var url_move = '@Url.Action("_MoveEq", "EquipMent", objTokenKey)';
+        var url_updown = '@Url.Action("_UpDownEq", "EquipMent", objTokenKey)';
+        var url_eqinfo = '@Url.Action("_EqInfo", "EquipMent", objTokenKey)';
+        var url_passabc='@Url.Action("_PassABC", "EquipMent", objTokenKey)'
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'west',iconCls:'icon-my_eq',split:false,collapsible:false,tools:'#treett',border:true" title="设备树" style="width:250px;border-bottom:none;border-left:none;border-top:none">
+        @Html.Partial("_EqTree")
+    </div>
+    <div data-options="region:'center',title:'',border:false">
+        <table id="dg" class="easyui-datagrid" title="当前选择设备：" style="width:100%"
+               data-options="@SysController.__PublishTool(),iconCls:'icon-my_eqedit',fit:true,singleSelect:true,collapsible:false,toolbar:'#tb',url:'@Url.Action("__GetChildTree","EquipMent",objTokenKey)',method:'post',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,border:false,onLoadSuccess:function(data){formatlinbutton();}">
+            <thead>
+                <tr>
+                    <th data-options="field:'eqID',width:100,align:'center',formatter:formatid">设备ID</th>
+                    <th data-options="field:'eqCode',width:120,align:'center'">编码</th>
+                    <th data-options="field:'eqName',width:200,align:'left',halign:'center'">设备名称</th>
+                    <th data-options="field:'eqTypeSpecification',width:200,align:'left',halign:'center'">型号规格</th>
+                    <th data-options="field:'eqInfo',width:550,align:'left',halign:'center'">设备说明</th>
+                    <th data-options="field:'eqABC',width:60,align:'center'">等级</th>
+                    <th data-options="field:'eqClassName',width:90,align:'center'">专业类别</th>
+                    <th data-options="field:'eqInstallDate',width:100,align:'center'">投用日期</th>
+                    <th data-options="field:'eqIsDel',width:60,align:'center',formatter:stateformat">状态</th>
+                    <th data-options="field:'nodeOpen',width:60,align:'center',formatter:openformat">节点</th>
+                    <th data-options="field:'eqOrderBy',width:60,align:'center'">排序</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="treett">
+        <a href="javascript:void(0)" title="点击这里返回根节点" class="easyui-tooltip" iconCls="icon-my_root" onclick="selectroot()"></a>
+    </div>
+    <div id="tb">
+        <div style="margin:2px">
+            <a id="goback" href="javascript:;" style="margin-right:50px" class="easyui-linkbutton" iconCls="icon-my_left" plain="@SysController.__ThemsType()" onclick="goback();"></a>
+            <input id="nowselectNode" type="hidden" value="0" />
+            <a id="addBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqadd" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="addEqTree();" opearteType="1">添加</a>
+            <a id="editBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqedit" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="editEqTree();" opearteType="2">修改</a>
+            <a id="moveBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqmove" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="moveEqTree();" opearteType="3">移动</a>
+            <a id="upBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_up" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="upEqTree();" opearteType="4">上线</a>
+            <a id="downBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_down" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="downEqTree();" opearteType="5">下线</a>
+            <a id="crappedBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqdel" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="crappedEqTree();" opearteType="6">报废</a>
+            <a id="recoverBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqerr" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="recoverEqTree();" opearteType="7">恢复</a>
+            <a id="passabcBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqabc" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="passABC();" opearteType="8">评级</a>
+            <div class="fa fa-file-text-o mylabel" style="padding-left:20px"><span style="padding-left:2px">查询条件</span></div>
+            <input id="searchkey" class="easyui-searchbox" data-options="prompt:'输入设备名称关键字',searcher:searchKey" style="width:200px">
+        </div>
+    </div>
+
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/EquipMent/manageeqtree.js"></script>
+</body>
+</html>

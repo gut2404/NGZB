@@ -1,0 +1,39 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加角色</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_add = '@Url.Action("__Add","Role", objTokenKey)';
+        var url_pass = '@Url.Action("__Pass", "Role", objTokenKey)';
+        var checkPass = '1';
+    </script>
+</head>
+<body>
+    <div class="easyui-panel" title="添加角色" style="width:300px" data-options="iconCls:'icon-my_user'">
+        <div style="padding:10px 10px 10px 10px">
+            <div id="ff" class="easyui-form" data-options="novalidate:true">
+                <table cellpadding="5">
+                    <tr>
+                        <td class="rightTD">角色名称:</td>
+                        <td><input id="roleName" class="easyui-textbox" type="text" name="userCode" data-options="required:true,iconCls:'icon-my_user',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">角色描述:</td>
+                        <td><input id="roleInfo" class="easyui-textbox" name="message" data-options="multiline:true" style="height:120px"></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" class="easyui-linkbutton c2" data-options="iconCls:'icon-add'" onclick="submitForm()">添加</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton c4" data-options="iconCls:'icon-no'" onclick="clearForm()">清空</a>
+            </div>
+        </div>
+    </div>
+    <script src="~/JsApp/Role/_add.js"></script>
+</body>
+</html>

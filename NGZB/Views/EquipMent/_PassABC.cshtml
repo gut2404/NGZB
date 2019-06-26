@@ -1,0 +1,34 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <script>
+        var url_passabc = '@Url.Action("__PassABC", "EquipMent",objTokenKey)';
+    </script>
+    <title>设备评级</title>
+</head>
+<body>
+    <div>
+        <div style="padding:5px 0 5px 5px;text-align:left">
+            当前设备:<span id="eqname" style="color:blue">@ViewBag.eqName </span>
+            <input id="eqid" type="hidden" value="@ViewBag.eqID" />
+        </div>
+        <table id="pg" class="easyui-propertygrid" style="width:100%" data-options="
+				url:'@Url.Action("__PropertyGridABC","EquipMent",objTokenKey)',
+				method:'get',
+                showGroup:false,
+                showHeader:false,
+				scrollbarSize:0
+			"></table>
+    </div>
+    <div style="padding:5px;text-align:center">
+        <a href="javascript:;" class="easyui-linkbutton toolbtn50 c2" iconCls="icon-my_eqabc" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="getChanges()">评级</a>
+    </div>
+    <script src="~/JsApp/EquipMent/_passabc.js"></script>
+</body>
+</html>

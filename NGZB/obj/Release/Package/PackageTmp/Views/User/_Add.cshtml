@@ -1,0 +1,54 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加用户</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script src="~/Scripts/jQuery.md5.js"></script>
+    <script>
+        var url_pass = '@Url.Action("__Pass", "User", objTokenKey)';
+        var url_add = '@Url.Action("__Add","User", objTokenKey)';
+    </script>
+</head>
+<body>
+    <div class="easyui-panel" title="添加用户" style="width:400px" data-options="iconCls:'icon-man'">
+        <div style="padding:10px 60px 10px 60px">
+            <div id="ff" class="easyui-form" data-options="novalidate:true">
+                <table cellpadding="5">
+                    <tr>
+                        <td class="rightTD">登录名:</td>
+                        <td><input id="userCode" class="easyui-textbox" type="text" name="userCode" data-options="required:true,iconCls:'icon-man',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">姓名:</td>
+                        <td><input id="userName" class="easyui-textbox" type="text" name="userName" data-options="required:true,iconCls:'icon-man',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">密码:</td>
+                        <td><input id="password" class="easyui-textbox" type="password" name="passWord" data-options="required:true,iconCls:'icon-lock',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">确认密码:</td>
+                        <td><input id="password2" class="easyui-textbox" type="password" name="passWord2" data-options="required:true,iconCls:'icon-lock',iconAlign:'right'"></td>
+                    </tr>
+                    <tr>
+                        <td class="rightTD">部门:</td>
+                        <td>
+                            <input id="cc" class="easyui-combotree" data-options="url:'@Url.Action("__Get","Group", objTokenKey)',method:'get',lines:'true',required:true,panelHeight:'auto',iconCls:'icon-my_dpmap',iconAlign:'right'" style="width:150px;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" class="easyui-linkbutton c2" data-options="iconCls:'icon-add'" onclick="submitForm()">添加</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton c4" data-options="iconCls:'icon-no'" onclick="clearForm()">清空</a>
+            </div>
+        </div>
+    </div>
+    <script src="~/JsApp/User/_add.js"></script>
+</body>
+</html>

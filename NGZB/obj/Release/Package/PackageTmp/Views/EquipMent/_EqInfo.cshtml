@@ -1,0 +1,28 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTookenKey = SysController.__TokenKey();
+        string url_info = Url.Action("__GetEqInfo", "EquipMent", objTookenKey) + "&eqid=" + @Request.QueryString["eqid"];}
+    <title>设备信息详情</title>
+</head>
+<body>
+    <div style="width:100%;overflow-x:hidden;text-align:center">
+        <table id="pg" class="easyui-propertygrid" style="width:100%" data-options="
+				url:'@url_info',
+				method:'get',
+				showGroup:true,
+                showHeader:false,
+                nowrap:false,
+                striped:true,
+                columns:
+                [[{field:'name',title:'Name',width:100,sortable:false,align:'right'},
+                  {field:'value',title:'Value',width:800,sortable:false,fitColumns:true}]],
+				scrollbarSize:0
+			"></table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>系统设置</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script src="~/Scripts/jquery.edatagrid.js"></script>
+    <script type="text/javascript">
+        var url_setsave = '@Url.Action("__SetSave", "Sys", objTokenKey)';
+    </script>
+</head>
+<body style="width:100%">
+    <table id="tt" style="width:100%;"
+           title="系统设置"
+           url="@Url.Action("__GetSet","Sys", objTokenKey)"
+           singleSelect="true"
+           data-options="@SysController.__PublishTool(),iconCls:'icon-my_systemset',fit:true,toolbar:'#tb',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,border:false">
+        <thead>
+            <tr>
+                <th field="setItme" align="center" width="60">设置键</th>
+                <th field="setName" align="center" width="80" editor="{type:'validatebox',options:{required:true}}">键名</th>
+                <th field="setValue" width="150" halign="center" align="left" editor="{type:'validatebox',options:{required:true}}">键值</th>
+                <th field="setInfo" halign="center" align="left" editor="text">键说明</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="margin:2px;text-align:center">
+            <div class="fa fa-file-text-o mylabel" style="padding-left:20px"><span style="padding-left:2px">输入键名或者键描述查询：</span></div>
+            <input id="searchkey" class="easyui-textbox" style="width:200px;height:25px">
+            <a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>
+        </div>
+    </div>
+    <div id="mm" class="easyui-menu" style="width:120px;">
+        <div onclick="javascript: cancle();" data-options="iconCls:'icon-no'">取消编辑</div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Sys/set.js"></script>
+</body>
+</html>

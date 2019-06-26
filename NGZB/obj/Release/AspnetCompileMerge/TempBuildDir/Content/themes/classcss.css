@@ -1,0 +1,86 @@
+﻿.tabsbackgroud {
+    background: url('images/bg.jpg') no-repeat 0px 0px;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.towmenu {
+    text-align: left;
+    margin-bottom: 1px;
+    padding-left: 5px;
+    overflow-x: hidden;
+    width: 142px; /*此宽度要保证比ngzb.menu小8*/
+}
+
+.onemenu {
+    overflow: auto;
+    padding-top: 0px;
+    margin-top: 1px;
+    overflow-x: hidden;
+    width: 100%;
+    text-align: center;
+}
+
+.inner {
+    height: 60px;
+    line-height: 60px;
+}
+
+.topleft {
+    float: left;
+    margin: 0px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 65px;
+    font-size: 25px;
+    color: aliceblue;
+    font-weight: bold;
+    background: url('images/logo.png') no-repeat 10px 0px;
+}
+
+.topright {
+    float: right;
+}
+
+.mylabel {
+    cursor: auto;
+    color: blue;
+}
+
+.datagrid-header-row td {
+    background-color: #0094ff;
+    color: #fff;
+}
+
+    .datagrid-header-row td:hover {
+        background-color: #0094ff;
+        color: #fff;
+        cursor: default;
+    }
+
+.datagrid-header-rownumber {
+    background-color: #0094ff;
+}
+
+.rightTD {
+    text-align: right;
+}
+
+.leftTD {
+    text-align: left;
+}
+
+.toolbtn50 {
+    width: 50px;
+    height: 50px;
+}
+
+.toolbtn75 {
+    width: 75px;
+    height: 50px;
+}
+
+.toolbtn100 {
+    width: 100px;
+    height: 50px;
+}

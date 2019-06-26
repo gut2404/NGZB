@@ -1,0 +1,18 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+
+    <title>添加、修改帮助</title>
+</head>
+<body>
+    <div>
+        @ViewBag.modelid
+        @Html.Partial("_SimpleEdit", new ViewDataDictionary { { "id", "securityinfo" }, { "w", "100%" }, { "h", "400px" }, { "t", "0" } })
+    </div>
+</body>
+</html>

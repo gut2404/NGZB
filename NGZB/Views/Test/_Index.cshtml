@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Html.Partial("_JsCss")
+
+    @*<link href="~/Scripts/ztree/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+        <link href="~/Content/themes/myicon.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+        <script src="~/Scripts/ztree/zTreeStyle/jquery.ztree.core.js"></script>
+        <script src="~/Scripts/ztree/zTreeStyle/jquery.ztree.core.min.js"></script>*@
+    <SCRIPT type="text/javascript">
+		<!--
+		var setting = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+        var zNodes;
+        $(document).ready(function ()
+        {
+            $.ajax({
+                url: '@Url.Action("treejson","Test")',
+                type: 'post',
+                async: true,
+                cache: false,
+                data: { id: 3 },
+                dataType: 'json',
+                success: function (data)
+                {
+                    $.fn.zTree.init($("#treeDemo"), setting, data);
+                },
+                error: function ()
+                {
+                    layer.alert("通讯失败，请重试！", { icon: 2 });
+                }
+            });
+        });
+        function a1()
+        {
+            alert($('#a1').val());
+        }
+        function a2()
+        {
+            alert($('#a2').val());
+        }
+    </SCRIPT>
+</head>
+<body>
+    <div class="zTreeDemoBackground left">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    <div>
+        <table style="width:100%">
+            @*<tr>
+                    <td class="rightTD">公告标题:</td>
+                    <td class="leftTD" style="padding-left:20px"><input id="messagetitle" class="easyui-textbox" type="text" name="name" data-options="required:true" style="width:400px" /></td>
+                </tr>*@
+            <tr>
+                @Html.Partial("_IconSelect", ViewData["w"] = "150")
+                @*<td class="rightTD">通知内容:</td>
+                    <td class="leftTD" style="padding-left:20px;padding-right:20px;">@Html.Partial("_RichEdit")</td>*@
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <a id="add" class="easyui-linkbutton c1" data-options="iconCls:'icon-add'" style="width:80px;margin-top:10px" onclick="a1()">a1</a>
+                    <a id="cls" class="easyui-linkbutton c5" data-options="iconCls:'icon-clear'" style="width:80px;margin-left:80px" onclick="a2()">清空内容</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿@using NGZB.Controllers
+@using NGZB.Models.Object
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();
+            LoginUser loginUser = new LoginUser();
+            var TokenKeyEqID = new { tokenkey = loginUser.Tokenkey, eqid = ViewBag.eqid };
+    }
+    <title>点检标准</title>
+    <script>
+        var url_save = '@Url.Action("__SaveDayCheck", "EquipMent", objTokenKey)';
+        var url_redo = '@Url.Action("__DayCheckStandDelRedo", "EquipMent", objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="p" class="easyui-panel" title="" style="width:100%;margin-bottom:2px;" data-options="@SysController.__PublishTool(),collapsible:false,minimizable:false,maximizable:false,closable:false,fit:true,border:false">
+        <table id="dg" class="easyui-datagrid" title="" data-options="singleSelect:true,collapsible:false,url:'@Url.Action("__DayCheckStand", "EquipMent",TokenKeyEqID)',method:'get',fit:true,pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,border:false,toolbar:'#tb',onLoadSuccess:function(data){formatlinbutton();},nowrap:false">
+            <thead>
+                <tr>
+                    <th data-options="field:'id',width:50,align:'center'">序号</th>
+                    <th data-options="field:'checkTypeName',width:150,align:'center'">点检类型</th>
+                    <th data-options="field:'checkParts',width:150,align:'center'">点检部位</th>
+                    <th data-options="field:'dayCheckStand',width:320,align:'left',halign:'center'">点检标准</th>
+                    <th data-options="field:'dayCheckTimeNum',width:80,align:'center',formatter:timeformat">点检周期</th>
+                    <th data-options="field:'checkTypeId',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'dayCheckID',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'unitName',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'timeNumUnitID',width:1,align:'center',hidden:true"></th>
+                    <th data-options="field:'dayCheckInfo',width:320,align:'left',halign:'center'">点检内容 </th>
+                    <th data-options="field:'dayCheckMothed',width:160,align:'center'">点检方法 </th>
+                    <th data-options="field:'dayCheckState',width:120,align:'center'">点检状态</th>
+                    <th data-options="field:'isView',width:80,align:'center',formatter:opformat">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="tb">
+        <div style="margin:2px">
+            <table style="width:100%" border="0">
+                <tr>
+                    <td width="80" align="right">
+                        章节标题
+                        <input id="eqid" type="hidden" value="@ViewBag.eqid" />
+                    </td>
+                    <td colspan="3" align="left">
+                        <input id="checktitle" class="easyui-textbox" style="width:400px;height:25px" value="@ViewBag.checktitle"><div class="fa fa-file-text-o mylabel" style="padding-left:20px"><span style="padding-left:2px">该内容对应作业文件的中的小章节标题，最后生产静态文件时将该内容合并进来</span></div>
+                    </td>
+                    <td align="right">
+                        点检类型
+                    </td>
+                    <td align="left">
+                        <input class="easyui-combobox" id="checktypeid" style="width:100%" data-options="url:'@Url.Action("__GetDayCheckType","EquipMent",objTokenKey)', method:'get', valueField:'id', textField:'text',panelHeight:'auto',multiple:false,editable: false">
+                    </td>
+                    <td width="80" rowspan="2" align="center" valign="middle">
+                        <a href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-save" plain="@SysController.__ThemsType()" iconAlign="top" onclick="saveDayCheck();">保存</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="80" align="right">点检部位</td>
+                    <td width="240" align="left">
+                        <input id="daycheckpart" class="easyui-textbox" style="width:300px;height:25px">
+                    </td>
+                    <td width="80" align="right">点检标准</td>
+                    <td align="left">
+                        <input id="daycheckstand" class="easyui-textbox" style="width:500px;height:25px">
+                    </td>
+                    <td width="80" align="right">点检周期</td>
+                    <td width="120" align="left">
+                        <input id="daychecktime" class="easyui-textbox" style="width:50px;height:25px">
+                        @Html.Partial("_UnitSelect")
+                    </td>
+                </tr>
+                <tr>
+                    <td width="80" align="right">点检方法</td>
+                    <td width="240" align="left">
+                        <input class="easyui-combobox" id="daycheckmethod" style="width:100%" data-options="url:'@Url.Action("__GetDayCheckMethod","EquipMent",objTokenKey)', method:'get', valueField:'id', textField:'text',panelHeight:'auto',multiple:true,editable: false">
+                    </td>
+                    <td width="80" align="right">点检内容</td>
+                    <td align="left">
+                        <input id="daycheckinfo" class="easyui-textbox" style="width:500px;height:25px">
+                    </td>
+                    <td width="80" align="right">点检状态</td>
+                    <td width="80" align="left">
+                        <input class="easyui-combobox" id="daycheckstate" style="width:100%" data-options="url:'@Url.Action("__GetDayCheckState","EquipMent",objTokenKey)', method:'get', valueField:'id', textField:'text',panelHeight:'auto',multiple:true,editable: false">
+                    </td>
+                    <td>
+                        <input class="easyui-switchbutton" id="switchbtn" checked="checked" data-options="onText:'新建',offText:'保存'">
+                        <input id="daycheckid" type="hidden" value="0" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="~/JsApp/EquipMent/_adddaycheck.js"></script>
+</body>
+</html>

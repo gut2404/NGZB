@@ -1,0 +1,99 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>目录管理</title>
+    @Html.Partial("_JsCss")
+    <script src="~/Scripts/jquery.etree.js"></script>
+    <script src="~/Scripts/jquery.etree.lang.js"></script>
+    @{ var objTookenKey = SysController.__TokenKey(); }
+    <script>
+        var url_adddocumentallow = '@Url.Action("_AddDoucmentAllow", "FileSystem", objTookenKey)';
+        var url_deldocument = '@Url.Action("__DelDocument", "FileSystem", objTookenKey)';
+        var url_redocument = '@Url.Action("__ReDocument", "FileSystem", objTookenKey)';
+        var url_setroot = '@Url.Action("__SetRoot", "FileSystem", objTookenKey)';
+        var url_movedocument = '@Url.Action("__MoveDoucmet", "FileSystem",objTookenKey)';
+        var url_editdocument = '@Url.Action("__EditDocument", "FileSystem", objTookenKey)';
+        var url_adddocument = '@Url.Action("__AddDocument", "FileSystem", objTookenKey)';
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'west',iconCls:'icon-my_doucment',split:false,collapsible:false,tools:'#treett'" title="文件目录树" style="width:260px;border-bottom:none;border-top:none;border-left:none">
+        <div data-options="fit:true" class="easyui-panel" style="padding:1px;border:0px;text-align:left;">
+            <ul id="tree" style="border:0px;border-color:white" class="easyui-tree" data-options="url:'@Url.Action("__GetDocumentTree","FileSystem",objTookenKey)', method:'get',animate:true, lines:true,formatter:parentNum"></ul>
+        </div>
+        <input id="selectducid" type="hidden" value="0" />
+    </div>
+    <div data-options="region:'center',title:'',border:false">
+        <div style="height:100%;border:0px;border-color:white">
+            <table id="dg" class="easyui-datagrid" title="当前选择目录：根目录" style="width:100%;border:0px;border-color:white"
+                   data-options="@SysController.__PublishTool(),iconCls:'icon-my_duc',fit:true,rownumbers:false,singleSelect:true,pagination:true,loadFilter:pagerFilter,pageSize:@SysController.__PageSize(),url: '@Url.Action("__GetParentDocumet","FileSystem",objTookenKey)',toolbar:'#tb',onLoadSuccess:function(data){formatlinbutton();},fitColumns:true,nowrap:false,striped:true,border:false">
+                <thead>
+                    <tr style="width:100%">
+                        <th field="documentName" width="120" align="left">目录名称</th>
+                        <th field="documentInfo" width="400" align="left">功能描述</th>
+                        <th field="documentCounts" width="50" align="center">子目录数</th>
+                        <th field="fileCount" width="50" align="center">文件数</th>
+                        <th field="documentOrderBy" width="40" align="center">排序</th>
+                        <th field="isDel" width="60" align="center" data-options="formatter:delformat">是否删除</th>
+                        <th data-options="field:'documentID',width:60,align:'center',halign:'center',formatter:urlformat">修改</th>
+                        <th data-options="field:'_add',width:60,align:'center',halign:'center',formatter:addformat">添加</th>
+                        <th data-options="field:'_del',width:60,align:'center',halign:'center',formatter:formatOper">删除</th>
+                        <th data-options="field:'_allow',width:60,align:'center',halign:'center',formatter:formatAllow">授权</th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="tb">
+                <div style="margin:2px;">
+                    <div class="fa fa-file-text-o mylabel" style="padding-left:5px"> 输入文件名称或者描述关键字：</div>
+                    <input id="searchkey" class="easyui-textbox" style="width:200px;height:25px">
+                    <a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="treett">
+        <a href="javascript:void(0)" title="点击这里返回根目录" class="easyui-tooltip" iconCls="icon-my_root" onclick="selectroot()"></a>
+    </div>
+    <div id="mm" class="easyui-menu" style="width:80px;">
+        <div id="btnroot" data-options="iconCls:'icon-my_root'" onclick="setRoot();">设为顶级节点</div>
+    </div>
+    <div id="editdiv" style="padding:5px 5px 5px 25px;display:none">
+        <table cellpadding="5">
+            <tr>
+                <td>上级目录ID:</td>
+                <td><input id="parentid" style="width:80px" class="easyui-textbox" type="text" name="parentid" disabled="disabled" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>上级目录路径:</td>
+                <td><input id="parentname" style="width:160px" class="easyui-textbox" type="text" name="parentname" disabled="disabled" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>目录ID:</td>
+                <td><input id="editid" style="width:80px" class="easyui-textbox" type="text" name="documentid" disabled="disabled" data-options="required:false" /></td>
+            </tr>
+            <tr id="ordertr">
+                <td>目录排序:</td>
+                <td><input id="orderby" style="width:40px" class="easyui-textbox" type="text" name="orderby" data-options="required:false" /><span style="color:red;font-size:small">&nbsp;&nbsp;必须为整数，值越小越靠前</span></td>
+            </tr>
+            <tr>
+                <td>目录名称:</td>
+                <td><input id="editname" style="width:160px" class="easyui-textbox" type="text" name="documentname" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>目录描述:</td>
+                <td><input id="editinfo" style="width:200px;height:120px" class="easyui-textbox" type="text" name="documentinfo" data-options="multiline:true,required:false" /></td>
+            </tr>
+        </table>
+        <div style="text-align:center;padding:5px">
+            <a id="subeditbtn" href="javascript:void(0)" class="easyui-linkbutton c2" data-options="iconCls:'icon-edit'" onclick="subedit();">修改目录</a>
+            <a id="subaddbtn" href="javascript:void(0)" class="easyui-linkbutton c2" data-options="iconCls:'icon-add'" onclick="subadd();">添加目录</a>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/FileSystem/doucmentmanage.js"></script>
+</body>
+</html>

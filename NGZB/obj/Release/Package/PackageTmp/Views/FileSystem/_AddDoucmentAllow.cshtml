@@ -1,0 +1,74 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>目录权限管理</title>
+    @Html.Partial("_JsCss")
+    @{
+        var objTokenKey = SysController.__TokenKey();
+        var strTokenKey = SysController.__TokenKeyStr();
+    }
+    <script>
+        var url_getnoallowuser = '@Url.Action("__GetNoAllowUser", "FileSystem",objTokenKey)';
+        var url_deldocumentallow = '@Url.Action("__DelDocumentAllow", "FileSystem",objTokenKey)';
+        var url_documentaddallow = '@Url.Action("__DocumentAddAllow", "FileSystem",objTokenKey)';
+        var url_getdocumentall = '@Url.Action("__GetDocumentAll", "FileSystem",objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="addallow" style="padding:5px 5px 5px 25px;display:block">
+        <table cellpadding="5">
+            <tr>
+                <td>目录ID:</td>
+                <td><input id="allowducid" style="width:80px" class="easyui-textbox" type="text" name="documentid" disabled="disabled" value="@ViewBag.ducid" /></td>
+            </tr>
+            <tr>
+                <td>目录名称:</td>
+                <td><input id="allowducname" style="width:150px" class="easyui-textbox" type="text" name="documentname" disabled="disabled" value="@ViewBag.ducname" /></td>
+            </tr>
+            <tr>
+                <td>权限类别:</td>
+                <td>
+                    <select id="allowtype" class="easyui-combobox" name="state" style="width:60px;" data-options="panelHeight:'auto'">
+                        <option value="0">全部</option>
+                        <option value="1">上传</option>
+                        <option value="2">删除</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>选择部门:</td>
+                <td>
+                    @Html.Partial("_Department")
+                </td>
+            </tr>
+            <tr>
+                <td>选择用户:</td>
+                <td>
+                    <input class="easyui-combobox" id="getuser" style="width:150px" data-options="url:'@Url.Action("__GetNoAllowUser", "FileSystem", objTokenKey)', method:'get', valueField:'userCode', textField:'userName', multiple:true, panelHeight:'auto' ">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c1" data-options="iconCls:'icon-my_key'" onclick="addallow();">添加授权</a>
+                </td>
+            </tr>
+            <tr>
+                <td>已授权用户:</td>
+                <td>
+                    <input id="allowuser" class="easyui-combogrid" style="width:150px" data-options="panelWidth: 150, idField: 'documentAllowID' , textField: 'userName' , url: '@Url.Action("__GetDocumentAll", "FileSystem", new { tokenkey = strTokenKey,ducid = ViewBag.ducid })', method: 'get' , columns: [[ {field:'documentAllowID',title:'ID',width:30,align:'center'}, {field:'userName',title:'姓名',width:40,align:'center'}, {field:'allowType',title:'权限',width:30,align:'center',formatter:formattype} ]], fitColumns: true ">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c2" data-options="iconCls:'icon-no'" onclick="delallow();">删除授权</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="~/JsApp/FileSystem/_adddoucmentallow.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <title>润滑标准</title>
+</head>
+<body>
+    <div id="p" class="easyui-panel" title="" style="width:100%;margin-bottom:2px;" data-options="@SysController.__PublishTool(),collapsible:false,minimizable:false,maximizable:false,closable:false,fit:true,border:false">
+        <table id="dg" class="easyui-datagrid" title="" data-options="singleSelect:true,collapsible:false,url:'@Url.Action("__OnLineUser", "Sys",objTokenKey)',method:'get',fit:true,pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,border:false,toolbar:'#tb'">
+            <thead>
+                <tr>
+                    <th data-options="field:'LoginUserCode',width:150,align:'center'">登录名</th>
+                    <th data-options="field:'LoginUserName',width:150,align:'center'">用户姓名</th>
+                    <th data-options="field:'Tokenkey',width:300,align:'center'">认证码(Tokenkey)</th>
+                    <th data-options="field:'LoginGroupName',width:120,align:'center'">所在部门</th>
+                    <th data-options="field:'LoginGroup',width:80,align:'center'">部门代码</th>
+                    <th data-options="field:'MsgCunt',width:80,align:'center'">消息数量 </th>
+                    <th data-options="field:'LoginTime',width:220,align:'center'">登录时间 </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="tb">
+        <div style="margin:2px">
+            <a href="javascript:add();" class="easyui-linkbutton toolbtn75" iconAlign="@SysController.__IconAlign()" iconCls="icon-reload" plain="@SysController.__ThemsType()" onclick="ansyUser();">角色同步</a><div class="fa fa-file-text-o mylabel" style="padding-left:20px"><span style="padding-left:2px">说明：角色同步将本站的登录用户同步到公告接口，可用于其它系统免认证登录</span></div>
+        </div>
+    </div>
+    <script src="~/JsApp/EquipMent/_addoil.js"></script>
+</body>
+</html>

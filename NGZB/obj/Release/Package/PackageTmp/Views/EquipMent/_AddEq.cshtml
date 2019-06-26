@@ -1,0 +1,98 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加设备</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <script>
+        var url_add = '@Url.Action("__AddEq", "EquipMent",objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="editdiv" style="margin:5px 0px 5px 15px;text-align:center;display:block">
+        <table cellpadding="5" style="text-align:left">
+            <tr>
+                <td>上级节点ID</td>
+                <td><input id="parentid" style="width:80px" class="easyui-textbox" type="text" name="parentid" disabled="disabled" value="@ViewBag.eqParentID" data-options="required:false" /></td>
+                <td>上级节点名称</td>
+                <td>
+                    <input id="parentname" style="width:200px" class="easyui-textbox" type="text" name="parentname" value="@ViewBag.eqName" disabled="disabled" data-options="required:false" />
+                </td>
+            </tr>
+            <tr>
+                <td>设备编码</td>
+                <td><input id="codename" style="width:200px" class="easyui-textbox" type="text" data-options="required:false" value="@ViewBag.eqcode" /></td>
+                <td>设备名称</td>
+                <td><input id="treename" style="width:200px" class="easyui-textbox" type="text" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>专业类别</td>
+                <td>
+                    <input id="eqclass" class="easyui-combobox" data-options="url:'@Url.Action("__EqClass", "EquipMent",objTokenKey)',method:'get',valueField:'id',textField:'text',panelHeight:'auto',editable: false">
+                </td>
+                <td>型号规格</td>
+                <td><input id="eqtype" style="width:200px" class="easyui-textbox" type="text" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>设备排序</td>
+                <td><input id="orderby" style="width:80px" class="easyui-textbox" type="text" data-options="required:false" /></td>
+                <td>节点类型</td>
+                <td>
+                    <select id="nodetypeselect" class="easyui-combobox" name="state" style="width:90px" data-options="panelHeight:'auto'">
+                        <option value="1">实体设备</option>
+                        <option value="0">虚拟节点</option>
+                    </select>
+                    <select id="nodeopen" class="easyui-combobox" data-options="panelHeight:'auto'" style="width:60px">
+                        <option value="closed" selected="selected">折叠</option>
+                        <option value="open">展开</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>投用日期</td>
+                <td>
+                    <input id="installdate" style="width:100px" class="easyui-datebox" type="text" data-options="required:false" />
+                </td>
+                <td>设备图标</td>
+                <td>
+                    @Html.Partial("_IconSelect", new ViewDataDictionary { { "w", "190" }, { "id", "geticon" } })
+                </td>
+            </tr>
+            <tr>
+                <td>设备供应商</td>
+                <td><input id="eqsupplier" style="width:200px" class="easyui-textbox" type="text" data-options="required:false" /></td>
+                <td>设备制造商</td>
+                <td><input id="eqmanufacturer" style="width:200px" class="easyui-textbox" type="text" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>
+                    是否需要备件
+                </td>
+                <td>
+                    <select class="easyui-combobox" id="spareparts" style="width:50px;" data-options="panelHeight:'auto'">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </td>
+                <td>
+                    关键事故件
+                </td>
+                <td>
+                    <input class="easyui-switchbutton" id="major" data-options="onText:'是',offText:'否'">
+                </td>
+            </tr>
+            <tr>
+                <td>设备描述</td>
+                <td colspan="3"><input id="editinfo" style="width:100%;height:80px" class="easyui-textbox" type="text" data-options="multiline:true,required:false" /></td>
+            </tr>
+        </table>
+        <div style="text-align:center;margin-top:5px">
+            <a id="subaddbtn" href="javascript:void(0)" class="easyui-linkbutton toolbtn50 c2" data-options="iconCls:'icon-add'" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="subAdd();">添加</a>
+        </div>
+    </div>
+    <script src="~/JsApp/EquipMent/_addeq.js"></script>
+</body>
+</html>

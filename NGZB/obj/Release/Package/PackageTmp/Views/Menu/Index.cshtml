@@ -1,0 +1,69 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>自动化系统模块管理</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script type="text/javascript">
+        var url_getmenumodel = '@Url.Action("__GetMenuModel", "Sys",objTokenKey)';
+        var url_add = '@Url.Action("__Add","Menu", objTokenKey)';
+        var url_del = '@Url.Action("__Del","Menu", objTokenKey)';
+        var url_addmenugroup = '@Url.Action("__AddMenuGroup","Menu", objTokenKey)';
+        var url_edit = '@Url.Action("_Edit", "Menu", objTokenKey)';
+    </script>
+</head>
+<body style="width:100%;">
+    <table id="tt" class="easyui-datagrid" style="width:100%"
+           title="菜单管理"
+           url="@Url.Action("__GetMenu","Menu", objTokenKey)"
+           singleSelect="true"
+           data-options="@SysController.__PublishTool(),iconCls:'icon-my_menu',fit:true,toolbar:'#tb',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,onLoadSuccess:function(data){formatlinbutton(data);},striped:true,border:false, onDblClickRow: function (index, row) {showEdit(index,row);} ">
+        <thead>
+            <tr>
+                <th field="menuID" align="center" width="60">菜单ID</th>
+                <th field="menuName" align="center" width="100">菜单名称</th>
+                <th field="menuInfo" width="400" halign="center" align="left">功能描述</th>
+                <th field="menuType" width="60" halign="center" align="center" data-options="formatter:cellStyler">菜单权限</th>
+                <th field="menuOrderBy" width="40" halign="center" align="center">排序</th>
+                <th field="_thems" width="60" halign="center" align="center" data-options="formatter:themsformat">最终样式</th>
+                <th field="_del" width="50" halign="center" align="center" data-options="formatter:delformat">删除</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="margin:2px;">
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-my_searckkey'" onclick="showAddMenuGroup()">菜单分组:</div>
+            <input id="menugroup" class="easyui-combobox" name="language" style="width:120px" data-options="url:'@Url.Action("__GetParentMenu", "Menu", objTokenKey)',onChange:function(newValue,oldValue){search(newValue);},method:'get',valueField:'menuID', textField:'menuName', panelHeight:'auto'">
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-my_controller'">选择模块:</div>
+            <input id="controller" class="easyui-combobox" name="language" style="width:120px" data-options="url:'@Url.Action("__GetController", "Sys", objTokenKey)',method:'get', valueField:'modelControllers', textField:'modelControllers', panelHeight:'auto',onChange:function(newValue,oldValue){search();} ">
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-my_plugin'">可添加功能:</div>
+            <input id="action" class="easyui-combobox" style="width:100px" data-options="url:'@Url.Action("__GetMenuModel", "Sys", objTokenKey)', method:'get', valueField:'modelID', textField:'modelName', panelHeight:'auto'">
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-my_icons'">菜单图标:</div>
+            @Html.Partial("_IconSelect", new ViewDataDictionary { { "w", "200" }, { "btn", "iconthemsbtn" } })
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-my_colors'">附加颜色:</div>
+            @Html.Partial("_ColorSelect", ViewData["btn"] = "iconthemsbtn")
+            <div class="easyui-linkbutton mylabel" data-options="plain:true,iconCls:'icon-my_key'">权限:</div>
+            <select id="menutype" class="easyui-combobox" name="state" style="width:60px;" data-options="panelHeight:'auto'">
+                <option value="0">公共</option>
+                <option value="1">授权</option>
+            </select>
+            <a id="iconthemsbtn" class="easyui-linkbutton" data-options="plain:@SysController.__ThemsType(),iconCls:'icon-add'" style="width:80px" onclick="addmenu()">添加菜单</a>
+        </div>
+    </div>
+    <div id="addgroup" style="padding:5px 5px 5px 10px;display:none;overflow:hidden">
+        <table cellpadding="5">
+            <tr>
+                <td>分组名称:</td>
+                <td><input id="groupname" style="width:160px" class="easyui-textbox" type="text" name="name" data-options="required:false" /></td>
+            </tr>
+        </table>
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:;" class="easyui-linkbutton" onclick="addMenuGroup();" data-options="plain:@SysController.__ThemsType(),iconCls:'icon-add'">添加分组</a>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Menu/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>系统图标管理</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_writecss = '@Url.Action("__WriteCss", "Sys",objTokenKey)';
+        var url_addico = '@Url.Action("_AddIcon", "Sys", objTokenKey)';
+        var url_newcreate = '@Url.Action("__NewCreateCss", "Sys", objTokenKey)';
+        var url_del='@Url.Action("__DelIcon", "Sys", objTokenKey)';
+    </script>
+</head>
+<body style="width:100%">
+    <table id="dg" class="easyui-datagrid" style="width:100%;"
+           title="系统自定义图标"
+           url="@Url.Action("__GetIcon","Sys", objTokenKey)"
+           singleSelect="true"
+           data-options="@SysController.__PublishTool(),fit:true,striped:true,toolbar:'#tb',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,onLoadSuccess:function(data){formatlinbutton(data);},border:false">
+        <thead>
+            <tr>
+                <th data-options="field:'isSys',width:60,align:'center',halign:'center',formatter:formatDel">删除</th>
+                <th field="iconId" align="center" width="80">iconID</th>
+                <th field="iconClass" align="center" width="100">Class类名</th>
+                <th field="imgname" align="center" width="100">图标文件名</th>
+                <th data-options="field:'_img',width:60,align:'center',halign:'center',formatter:formatOper">图标样式</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="margin:5px;text-align:center">
+            <input class="easyui-searchbox" data-options="prompt:'输入文件名或者CSS类名查询',menu:'#mm',searcher:doSearch" style="width:350px" /><div class="fa fa-file-text-o mylabel" style="padding-left:20px;"><span style="padding-left:2px">上传图标（必须png格式16*16大小）,如果文件已存在怎自动从命名</span></div>
+            <a style="margin-left:20px" id="up" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-my_up'" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()" onclick="submitForm()">上传图标</a>
+            <a id="newcreatecss" style="margin-left:20px" href="javascript:void(0)" class="easyui-linkbutton c3" iconCls="icon-my_css" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()" onclick="newcreate();">手动生成</a>
+            <a  id="createcss" style="margin-left:20px" href="javascript:void(0)" class="easyui-linkbutton c2" iconCls="icon-my_disk" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()" onclick="createcss();">手动保存</a>
+        </div>
+    </div>
+    <div id="mm">
+        <div data-options="name:'-1',iconCls:'icon-my_icons'">所有图标</div>
+        <div data-options="name:'1',iconCls:'icon-my_marker'">内置图标</div>
+        <div data-options="name:'0',iconCls:'icon-my_up'">上传图标</div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Sys/loadicon.js"></script>
+</body>
+</html>

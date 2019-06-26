@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Install/_Install.cshtml" hash="ffffffffc50725c1" filehash="f97e31528ec" flags="110000" assembly="App_Web_1vjyxqmz" type="ASP._Page_Views_Install__Install_cshtml">
+    <filedeps>
+        <filedep name="/Views/Install/_Install.cshtml" />
+    </filedeps>
+</preserve>

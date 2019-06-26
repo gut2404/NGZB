@@ -1,0 +1,27 @@
+﻿@*图标选择*@
+@using NGZB.Controllers
+@{
+    string id = ViewData["id"] == null ? "iconselect" : ViewData["id"].ToString();//id
+    string _width = ViewData["w"] == null ? "135px" : ViewData["w"].ToString() + "px";//宽度
+    string iconthemsbtn = ViewData["btn"] == null ? "" : "#" + ViewData["btn"].ToString();//把图标附加给一个linkbutton
+    var objTokenKey = SysController.__TokenKey();
+}
+<input id="@id" class="easyui-combobox" style="width:@_width" data-options="showItemIcon: true, url:'@Url.Action("__IconList","Sys",objTokenKey)', editable: false ">
+ <script>
+    $(function ()
+    {
+        if ('@iconthemsbtn' != '')
+            $('#@id').combobox({
+                onSelect: function (param)
+                {
+                    var value = 'icon-' + param.text;
+                    try
+                    {
+                        $('@iconthemsbtn').linkbutton({
+                            iconCls: '' + value + ''
+                        });
+                    } catch (e) { }
+                }
+            })
+    });
+</script>

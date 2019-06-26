@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Install/_Init_Dbconn.cshtml" hash="ffffffffc50725c1" filehash="ffffdca5450eedf7" flags="110000" assembly="App_Web_1vjyxqmz" type="ASP._Page_Views_Install__Init_Dbconn_cshtml">
+    <filedeps>
+        <filedep name="/Views/Install/_Init_Dbconn.cshtml" />
+    </filedeps>
+</preserve>

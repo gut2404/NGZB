@@ -1,0 +1,37 @@
+﻿@*富文本编辑器(复杂)*@
+<link href="~/Scripts/kindeditor/themes/default/default.css" rel="stylesheet" />
+<script src="~/Scripts/kindeditor/kindeditor-min.js"></script>
+<script src="~/Scripts/kindeditor/lang/zh_CN.js"></script>
+@{ string id = ViewData["id"] == null ? "RichEdit" : ViewData["id"].ToString();
+    string width = ViewData["w"] == null ? "95%" : ViewData["w"].ToString();
+    string height = ViewData["h"] == null ? "500px" : ViewData["h"].ToString();
+    int sizetype = 1;
+    if(ViewData["t"] != null)
+    {
+        int.TryParse(ViewData["t"].ToString(), out sizetype);
+        if(sizetype != 0 && sizetype != 1 && sizetype != 2)
+        {
+            sizetype = 1;
+        }
+    }
+}
+
+<script>
+    if (typeof KE == 'undefined')
+    {
+        var KE = [];
+    }
+    KindEditor.ready(function (K)
+    {
+        var kedit = K.create('#@id', {
+            uploadJson: '../Scripts/kindeditor/upload_json.ashx',
+            fileManagerJson: '../Scripts/kindeditor/file_manager_json.ashx',
+            allowFileManager: true,
+            resizeType: '@sizetype',
+            items: [
+                'selectall', '|','copy', 'paste', 'plainpaste', 'wordpaste', 'undo', 'redo', '|', 'fontname', 'fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'superscript', 'subscript', 'quickformat', 'formatblock', 'lineheight', 'indent', 'outdent', '|', 'hr', 'table', 'emoticons', 'link', 'unlink', 'baidumap', 'anchor', 'image', 'multiimage', 'code','insertfile','|', 'clearhtml', 'source', 'preview', 'print', 'fullscreen', 'selectall']
+        });
+        KE.push(kedit);
+    });
+</script>
+<textarea id="@id" style="width:@width;height:@height;visibility:hidden;"></textarea>

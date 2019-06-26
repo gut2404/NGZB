@@ -1,0 +1,58 @@
+﻿@using NGZB.Controllers
+@using NGZB.Models.Object;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{
+        LoginUser loginuser = new LoginUser();
+        var objTokenKey = SysController.__TokenKey();
+    }
+    <script>
+        var loginuser = '@loginuser.LoginUserCode';
+        var url_chek='@Url.Action("__CheckAuthorityUserCode", "EquipMent", objTokenKey)'
+    </script>
+    <title>作业文件</title>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'west',iconCls:'icon-my_eq',split:false,collapsible:false,border:true" title="设备树" style="width:250px;border-bottom:none;border-left:none;border-top:none">
+        @Html.Partial("_EqTree")
+        <script>
+            var url_eqinfo = '@Url.Action("_EqInfo", "EquipMent", objTokenKey)';
+            var url_ruleinfo = '@Url.Action("_RuleInfo", "EquipMent", objTokenKey)';
+            var url_managerule = '@Url.Action("_ManageRule", "EquipMent", objTokenKey)';
+            var longuser = '@loginuser.LoginUserCode';
+        </script>
+    </div>
+    <div data-options="region:'center',title:'',border:false">
+        <table id="dg" class="easyui-datagrid" title="当前选择设备：" style="width:100%;"
+               data-options="@SysController.__PublishTool(),iconCls:'icon-my_eqedit',fit:true,singleSelect:true,collapsible:false,toolbar:'#tb',url:'@Url.Action("__OperatingRules","EquipMent",objTokenKey)',method:'post',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:true,border:false,onLoadSuccess:function(data){formatlinbutton();}">
+            <thead>
+                <tr>
+                    <th data-options="field:'eqID',width:80,align:'center',formatter:formatid">设备ID</th>
+                    <th data-options="field:'eqName',width:200,align:'left',halign:'center'">设备名称</th>
+                    <th data-options="field:'operateName',width:400,align:'left',halign:'center'">作业文件名称</th>
+                    <th data-options="field:'operateCode',width:150,align:'left',halign:'center'">文件编号</th>
+                    <th data-options="field:'operateNumber',width:60,align:'center'">版次</th>
+                    <th data-options="field:'isPass',width:60,align:'center',formatter:stateformat">状态</th>
+                    <th data-options="field:'userName',width:80,align:'center'">编写人</th>
+                    <th data-options="field:'createUserCode',width:40,align:'center',formatter:userformat">浏览</th>
+                    <th data-options="field:'authorityUserCode',width:40,align:'center',hidden:true">管理人</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="tb">
+        <div style="margin:2px">
+            <a id="addBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqadd" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="addOpRule();" opearteType="1">添加</a>
+            <a id="editBtn" href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-my_eqedit" plain="@SysController.__ThemsType()" iconAlign="@SysController.__IconAlign()" onclick="editOpRule();" opearteType="2">修改</a>
+            <div class="fa fa-file-text-o mylabel" style="padding-left:20px"><span style="padding-left:2px">查询条件</span></div>
+            <input id="searchkey" class="easyui-searchbox" data-options="prompt:'输入设备名称、作业文件名称、文件编号关键字',searcher:searchKey" style="width:350px">
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/EquipMent/operatingrules.js"></script>
+</body>
+</html>

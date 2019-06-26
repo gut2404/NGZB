@@ -1,0 +1,56 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户角色授权</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_adduserrole = '@Url.Action("__AddUserRole","Role", objTokenKey)';
+        var url_deluserrole = '@Url.Action("__DelUserRole", "Role", objTokenKey)';
+        var url_getusergroup = '@Url.Action("__GetUserGroup", "User",objTokenKey)';
+    </script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" title="用户角色授权" style="width:100%"
+           data-options="@SysController.__PublishTool(),iconCls:'icon-my_menumanage',fit:true,rownumbers:false,singleSelect:false,pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,url: '@Url.Action("__GetUserRole","Role",objTokenKey)',toolbar:'#tb',fitColumns:true,striped:true,border:false">
+        <thead>
+            <tr style="width:100%">
+                <th data-options="field:'ck',checkbox:true" align="center"></th>
+                <th field="roleUserID" width="100" align="center">ID</th>
+                <th field="userName" width="80" align="center">用户姓名</th>
+                <th field="groupName" width="200" align="center">所属于部门</th>
+                <th field="roleAddUser" width="80" align="center">授权人</th>
+                <th field="addDate" width="140" align="center">授权日期</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="margin:2px">
+            <div class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-my_user'" style="enable-background:accumulate">
+                选择角色
+            </div>
+            <input id="roleID" class="easyui-combobox" name="role" data-options="url:'@Url.Action("__GetComboBox","Role", objTokenKey)',method:'get',required:false,valueField:'roleID',textField:'roleName',panelHeight:'auto'">
+
+            <div class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-my_dpmap'" style="enable-background:accumulate">
+                选择单位
+            </div>
+            <input id="groupID" class="easyui-combotree" data-options="url:'@Url.Action("__Get","Group",objTokenKey)',method:'get',lines:'true',panelHeight:'auto',iconCls:'icon-my_dpmap',iconAlign:'right',required:false,onSelect:function(node){search(node.id);}" style="width:150px;">
+
+            <div class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-man'" style="enable-background:accumulate">
+                选择用户
+            </div>
+            <input id="userCode" class="easyui-combobox" data-options="url:'@Url.Action("__GetUserGroup","User", objTokenKey)', method:'get',valueField:'userCode',textField:'userName',panelHeight:'auto',multiple:true,required:true">
+
+            <a href="javascript:add();" class="easyui-linkbutton" iconAlign="@SysController.__IconAlign()" iconCls="icon-add" plain="@SysController.__ThemsType()">分配角色</a>
+            <a href="javascript:del();" class="easyui-linkbutton" iconAlign="@SysController.__IconAlign()" iconCls="icon-remove" plain="@SysController.__ThemsType()">撤销角色</a>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Role/userrole.js"></script>
+</body>
+</html>
+

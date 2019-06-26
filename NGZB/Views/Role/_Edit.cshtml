@@ -1,0 +1,42 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>角色权限管理</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var isnull = 0;
+        var url_rolemenu = '@Url.Action("__RoleMenu", "Menu",objTokenKey)';
+        var url_addroleitem = '@Url.Action("__AddRoleItem", "Role",objTokenKey)';
+        var url_delroleitem = '@Url.Action("__DelRoleItem", "Role", objTokenKey)';;
+    </script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" title="角色权限管理" style="width:100%"
+           data-options="iconCls:'icon-my_plugin',fit:true,rownumbers:true,singleSelect:true,pagination:true,pageSize:10,url:'@Url.Action("__RoleItem","Role",objTokenKey)',method:'post',toolbar:'#tb',fitColumns:true">
+        <thead>
+            <tr style="width:100%">
+                <th data-options="field:'ck',checkbox:true" align="center"></th>
+                <th data-options="field:'roleItemID',width:60,align:'center',halign:'center'">细项ID</th>
+                <th data-options="field:'menuName',width:150,align:'center',halign:'center'">菜单名称</th>
+                <th data-options="field:'menuInfo',width:400,align:'left',halign:'center'">菜单功能描述</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb" style="padding:2px">
+        <div>
+            <div class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-my_user'" style="enable-background:accumulate">选择角色</div>
+            <input id="roleID" class="easyui-combobox" name="role" data-options="url:'@Url.Action("__GetComboBox","Role",objTokenKey)',method:'get',valueField:'roleID',textField:'roleName',onLoadSuccess:function(data){selectroleID(),searchmenu();serchrolemenu();},panelHeight:'auto'">
+            <div class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-my_menugroup'" style="enable-background:accumulate">选择菜单分组</div>
+            <input id="menuGrop" class="easyui-combobox" name="role" data-options="url:'@Url.Action("__GetMenuGroup","Menu",objTokenKey)',method:'get',valueField:'menuID',textField:'menuName',onLoadSuccess:function(data){selectmenugroup();searchmenu();},panelHeight:'auto'">
+            <div class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-my_menumanage'" style="enable-background:accumulate">选择菜单</div>
+            <input id="menuID" class="easyui-combobox" name="role" data-options="url:'@Url.Action("__RoleMenu","Menu",objTokenKey)',method:'get',valueField:'menuID',editable:false ,multiple:true,textField:'menuName', onLoadSuccess:function(data){selectmenu();},panelHeight:'auto'">
+            <a id="addallow" href="javascript:add();" class="easyui-linkbutton" iconAlign="top" iconCls="icon-ok" plain="@SysController.__ThemsType()">添加授权</a>
+            <a id="delallow" href="javascript:delconfirm();" class="easyui-linkbutton" iconAlign="top" iconCls="icon-my_del" plain="@SysController.__ThemsType()">删除授权</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Role/_edit.js"></script>
+</body>
+</html>

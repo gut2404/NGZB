@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    <title>配置数据库连接</title>
+    <script>
+        var url_test = '@Url.Action("__TestConn", "Install")';
+        var url_save = '@Url.Action("__saveConn", "Install")';
+    </script>
+</head>
+<body>
+    <div style="width:100%;text-align:center">
+        <table style="width:100%;margin-top:30px">
+            <tr>
+                <td colspan="2" style="text-align:center;font-size:16pt;color:blue">
+                    配置数据库连接
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:25%;padding:20px">
+                    配置数据库连接：
+                </td>
+                <td style="text-align:left">
+                    <input id="server" class="easyui-textbox" data-options="prompt:'数据库地址，包括实例名，如：127.0.0.1\\SQL2008，如果不清楚，联系数据库管理员',required:true" style="width:80%;height:32px">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:25%;padding:20px">
+                    数据库用户名：
+                </td>
+                <td style="text-align:left;">
+                    <input id="uid" class="easyui-textbox" data-options="prompt:'数据库登录用户名，如果不清楚，联系数据库管理员',required:true" style="width:50%;height:32px">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:25%;padding:20px">
+                    用户密码：
+                </td>
+                <td style="text-align:left">
+                    <input id="pwd" class="easyui-textbox" type="password" data-options="prompt:'对应登录用户的密码，如果不清楚，联系数据库管理员',required:true" style="width:30%;height:32px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;padding-top:45px">
+                    <a href="javascript:;" style="margin-right:50px;width:60px" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="testConn();">测试</a>
+                    <a href="javascript:;" style="margin-left:50px;width:60px" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveConn();">保存</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;color:red;padding-top:45px">注意：请先测试连接是否正常，再进行保存</td>
+            </tr>
+        </table>
+    </div>
+    <script src="~/JsApp/Install/_init_dbconn.js"></script>
+</body>
+</html>

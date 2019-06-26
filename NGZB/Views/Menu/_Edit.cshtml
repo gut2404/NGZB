@@ -1,0 +1,78 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <title>菜单修改</title>
+    <script>
+        var url_getmenumodel = '@Url.Action("__GetMenuModel", "Sys",objTokenKey)';
+        var url_edit = '@Url.Action("__Edit","Menu",objTokenKey)';
+    </script>
+</head>
+<body>
+    <div style="text-align:center;padding-left:10px;padding-top:10px">
+        <table style="text-align:left">
+            <tr>
+                <td style="word-break:break-word;white-space:nowrap">菜单ID</td>
+                <td>
+                    <input id="menuid" style="width:80px" class="easyui-textbox" type="text" disabled="disabled" value="@ViewBag.menuID" data-options="required:false" />
+                </td>
+                <td>菜单排序</td>
+                <td>
+                    <input id="menuorderby" style="width:80px" class="easyui-textbox" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td style="word-break:break-word;white-space:nowrap">菜单分组</td>
+                <td>
+                    <input id="menugroup" class="easyui-combobox" name="language" style="width:120px" data-options="url:'@Url.Action("__GetParentMenu", "Menu", objTokenKey)',onChange:function(newValue,oldValue){search(newValue);},method:'get',valueField:'menuID', textField:'menuName', panelHeight:'auto'">
+                </td>
+                <td style="word-break:break-word;white-space:nowrap">菜单权限</td>
+                <td>
+                    <select id="menutype" class="easyui-combobox" name="state" style="width:80px;" data-options="panelHeight:'auto'">
+                        <option value="0">公共</option>
+                        <option value="1">授权</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>选择模块</td>
+                <td>
+                    <input id="controller" class="easyui-combobox" name="language" style="width:120px" data-options="url:'@Url.Action("__GetController", "Sys", objTokenKey)',
+                   method:'get', valueField:'modelControllers', textField:'modelControllers', panelHeight:'auto',onChange:function(newValue,oldValue){search(newValue);} ">
+                </td>
+                <td style="word-break:break-word;white-space:nowrap">选择功能</td>
+                <td>
+                    <input id="action" class="easyui-combobox" style="width:100px" data-options="url:'@Url.Action("__GetMenuModel", "Sys", objTokenKey)',
+                   method:'get', valueField:'modelID', textField:'modelName', panelHeight:'auto'">
+                </td>
+            </tr>
+            <tr>
+                <td style="word-break:break-word;white-space:nowrap">菜单图标</td>
+                <td>
+                    @Html.Partial("_IconSelect", new ViewDataDictionary { { "w", "180" }, { "btn", "iconthemsbtn" } })
+                </td>
+                <td style="word-break:break-word;white-space:nowrap">附加颜色</td>
+                <td>
+                    @Html.Partial("_ColorSelect", ViewData["btn"] = "iconthemsbtn")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align:center;padding-top:20px">
+                    <a id="iconthemsbtn" class="easyui-linkbutton" data-options="plain:@SysController.__ThemsType(),iconCls:'icon-edit'" style="width:80px" onclick="editMenu()">修改菜单</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align:left;padding-top:30px;color:red">
+                    说明：如果菜单权限由授权变更为公共，将自动删除该菜单的授权用户;如果有公共菜单变成授权，则需要为该菜单添加授权用户;不需要修改的项目内容为空即可。
+                </td>
+            </tr>
+        </table>
+        <input id="menutypevalue" type="hidden" value="@ViewBag.menuType" />
+    </div>
+    <script src="~/JsApp/Menu/_edit.js"></script>
+</body>
+</html>

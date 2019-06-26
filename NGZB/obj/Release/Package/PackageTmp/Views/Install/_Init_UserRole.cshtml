@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ string str = "授权";}
+    <title>《@str》初始化</title>
+    <script>
+        var url = '@Url.Action("__InitUserRole", "Install")';
+    </script>
+</head>
+<body>
+    <div style="width:100%;text-align:center">
+        <table style="width:100%;margin-top:30px">
+            <tr>
+                <td colspan="2" style="text-align:center;font-size:16pt;color:blue">
+                    授权初始化
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;color:red">
+                    <ul>
+                        <li style="margin:15px 0px">
+                            初始化《@str》后，系统所有《@str》将全部被清除，需要从新配置《@str》；
+                        </li>
+                        <li style="margin:15px 0px">
+                            初始化《@str》后，系统所有用户的权限将全部被清除，需要从新配置用户权限；
+                        </li>
+                        <li style="margin:15px 0px">
+                            此项初始化影响系统权限，操作不当，可能导致无法进入系统，非专业人员，谨慎操作；
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align:center;margin-top:25px">
+            <a style="width:20%" href="javascript:;" class="easyui-linkbutton" iconAlign="top" iconCls="icon-my_del" onclick="okActive();">《@str》初始化</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Install/_init_userrole.js"></script>
+</body>
+</html>

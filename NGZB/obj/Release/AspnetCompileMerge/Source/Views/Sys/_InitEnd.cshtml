@@ -1,0 +1,43 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+
+    <title>设置完成</title>
+    <script>
+        var url = '@Url.Action("__InitEnd", "Sys",objTokenKey)';
+        var recUrl = '@Url.Action("_Login", "Home")';
+    </script>
+</head>
+<body>
+    <div style="width:100%;text-align:center">
+        <table style="width:100%;margin-top:30px">
+            <tr>
+                <td colspan="2" style="text-align:center;font-size:16pt;color:blue">
+                    设置完成
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;color:red">
+                    <ul>
+                        <li style="margin:15px 0px">
+                            在模块、菜单、角色、授权四个功能（单个或全部）初始化后需要操作相应的界面，界面在进入系统后显示；
+                        </li>
+                        <li style="margin:15px 0px">
+                            在保证至少有一位用户具有模块管理(Sys=>LoadModel)、菜单管理(Menu=>Index)、角色管理(Role=>Index)、授权管理(Role=>UserRole)四个功能后，可进行设置完成操作，以后用该用户管理系统；
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align:center;margin-top:25px">
+            <a style="width:20%" href="javascript:;" class="easyui-linkbutton" iconAlign="top" iconCls="icon-ok" onclick="okActive();">设置完成</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Sys/_initend.js"></script>
+</body>
+</html>

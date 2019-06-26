@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+        @Html.Partial("_JsCss")
+    <title>初始化帮助</title>
+</head>
+<body>
+    <div style="margin-right:15px">
+        <div style="text-align:center;font-size:16px;color:blue;margin-top:45px">初始化操作说明</div>
+        <ul>
+            <li style="color:red">
+                特别注意：每个初始化文件的一个模块只能初始化一次，请谨慎操作；
+            </li>
+            <li style="margin:15px 0px">
+                不同的模块初始化操作步骤不同，请根据具体页面的提示操作；
+            </li>
+            <li style="margin:15px 0px">
+                很多初始化操作是清除已有的数据，请注意相关页面的提示；
+            </li>
+            <li style="margin:15px 0px">
+                系统初始化一般在系统第一次使用时操作，在系统投用后初始化相关模块具有很大的数据丢失风险；
+            </li>
+            <li style="margin:15px 0px">
+                初始化时有些模块受其它模块的影响，为了减少相关操作，请尽量按照排序从上到下操作的顺序操作；
+            </li>
+            <li style="margin:15px 0px">
+                初始化文件通过专用程序配置生成，用户不能手工修改该文件，初始化全部模块后，该文件失效；
+            </li>
+            <li style="margin:15px 0px">
+                在不需要初始化配置文件中的所有模块时，初始化完相关模块后请点下面按钮完成配置，防止误操作；
+            </li>
+             <li style="margin:15px 0px">
+                如果无需任何初始化，直接点击下面按钮，开始使用系统。
+            </li>
+        </ul>
+        <div style="width:100%;text-align:center;margin-top:25px">
+            <a style="width:61%" href="javascript:;" class="easyui-linkbutton" iconAlign="top" iconCls="icon-my_del" onclick="delfile();">完成配置，开始使用</a>
+        </div>
+    </div>
+    <script>
+        var recUrl = '@Url.Action("Login", "Home")';
+        function delfile()
+        {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("__DeleteInitFile","Install")',
+                dataType: "text",
+                success: function (response)
+                {
+                    if (response == "1")
+                    {
+                        layer.alert("配置完成，欢迎使用，祝你愉快！", { icon: 6 }, function ()
+                        {
+                            location.replace(recUrl);
+                        });
+                    }
+                    else
+                    {
+                        layer.alert("操作失败，联系程序员！", { icon: 2 });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

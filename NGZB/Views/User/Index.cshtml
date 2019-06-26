@@ -1,0 +1,50 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户管理</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_add = '@Url.Action("_Add", "User",objTokenKey)';
+        var url_edit = '@Url.Action("_Edit", "User",objTokenKey)';
+        var url_del = '@Url.Action("__Del", "User",objTokenKey)';
+        var url_redo = '@Url.Action("__Redo", "User",objTokenKey)';
+    </script>
+</head>
+<body style="overflow:hidden;">
+    <table id="dg" class="easyui-datagrid" title="用户管理" style="width:100%"
+           data-options="@SysController.__PublishTool(),iconCls:'icon-man',fit:true,rownumbers:false,singleSelect:true,fitColumns:true,loadFilter:pagerFilter,pagination:true,pageSize:@SysController.__PageSize(),url: '@Url.Action("__Get","User",objTokenKey)',toolbar:'#tb',striped:true,border:false">
+        <thead>
+            <tr style="width:100%">
+                <th data-options="field:'ck',checkbox:true" align="center"></th>
+                <th field="userCode" width="100" align="center">登录名</th>
+                <th field="userName" width="120" align="center">用户姓名</th>
+                <th field="groupName" width="200" align="center">所属于部门</th>
+                <th field="loginNum" width="80" align="center">登录次数</th>
+                <th field="userIsDelFlag" width="80" align="center" data-options="formatter:delformat">是否删除</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="margin:2px">
+            <a href="javascript:add();" class="easyui-linkbutton c2" iconAlign="@SysController.__IconAlign()" iconCls="icon-add" plain="@SysController.__ThemsType()">添加用户</a>
+            <a href="javascript:edit();" class="easyui-linkbutton c2" iconAlign="@SysController.__IconAlign()" iconCls="icon-edit" plain="@SysController.__ThemsType()">编辑用户</a>
+            <a href="javascript:delconfirm();" class="easyui-linkbutton c2" iconCls="icon-remove" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()">删除用户</a>
+            <a href="javascript:redo();" class="easyui-linkbutton c2" iconCls="icon-redo" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()">恢复用户</a>
+            <div class="fa fa-user mylabel"> 用户登录名、用户名或者所在单位:</div>
+            <input id="searchkey" class="easyui-textbox" style="width:160px;height:25px">
+            <select id="f" class="easyui-combobox" name="state" data-options="panelHeight:'auto'" style="width:87px;height:26px;">
+                <option value="0" selected>全部</option>
+                <option value="1">未删除</option>
+                <option value="2">已删除</option>
+            </select>
+            <a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/User/index.js"></script>
+</body>
+</html>

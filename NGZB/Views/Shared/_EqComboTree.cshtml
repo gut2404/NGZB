@@ -1,0 +1,5 @@
+﻿@*设备树选择下拉框*@
+@using NGZB.Controllers
+    @{ string eqComboTree = ViewData["id"] == null ? "eqcombotree1" : ViewData["id"].ToString();
+        var objTokenKey = SysController.__TokenKey();}
+    <input id="@eqComboTree" class="easyui-combotree" data-options="url:'@Url.Action("__GetEqComboTree","EquipMent", objTokenKey)',method:'get',lines:'true',required:true,panelHeight:'auto',iconCls:'icon-my_eq',iconAlign:'right'" style="width:150px;">

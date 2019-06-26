@@ -1,0 +1,11 @@
+﻿@*版权说明*@
+@using NGZB.Controllers
+<div><span>@SysController.__CopyRight()</span> <a id="aboutlink" href="javascript:;" onclick="openabout();">关于我们</a></div>
+<script>
+    function openabout()
+    {
+        var url_about = '@Url.Action("_About","Home")';
+
+        addTab($("#aboutlink").text(), url_about);
+    }
+</script>

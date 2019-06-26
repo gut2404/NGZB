@@ -1,0 +1,6 @@
+﻿@*计量单位选择*@
+@using NGZB.Controllers
+@{ var objTokenKey = SysController.__TokenKey();
+    string id = ViewData["id"] == null ? "unitselect" : ViewData["id"].ToString();
+}
+<input class="easyui-combobox" id="@id" style="width:60px" data-options="url:'@Url.Action("__GetUnit","Sys",objTokenKey)', method:'get', valueField:'id', textField:'text',panelHeight:'auto',editable: false">

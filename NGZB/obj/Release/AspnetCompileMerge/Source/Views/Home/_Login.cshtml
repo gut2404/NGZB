@@ -1,0 +1,47 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/logincss")
+    @Scripts.Render("~/Scripts/loginjs")
+    <link href="~/Content/themes/themestemplet/default/switchbutton.css" rel="stylesheet" />
+    <link href="~/Content/themes/themestemplet/default/textbox.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/locale/easyui-lang-zh_CN.js"></script>
+    <title>@SysController.__CompanyName()用户登录</title>
+    <script>
+        var url_post = '@Url.Action("_Login", "Home")';
+        var url_rec = 'P';
+    </script>
+</head>
+
+<body>
+
+    <div id="login" class="page-container">
+        <h1>@SysController.__CompanyName()@SysController.__SystemTitle()</h1>
+        <form action="" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <input id="userCode" type="text" name="username" class="username" placeholder="用户名">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input id="passWord" type="password" name="password" class="password" placeholder="密码">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:15px">
+                        <input id="lg" class="easyui-switchbutton" name="lg" data-options="onText:'记住',offText:'否'"><span style="margin-left:5px;font-size:12pt">记住 @SysController.__CookiesTime() 天</span>
+                    </td>
+                </tr>
+            </table>
+            <button type="button" onclick="sub(url_post);">登录</button>
+            <div class="error"><span>+</span></div>
+        </form>
+    </div>
+    <script src="~/JsApp/Home/_login.js"></script>
+</body>
+</html>

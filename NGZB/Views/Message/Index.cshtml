@@ -1,0 +1,40 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>发布公告</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_addmessage = '@Url.Action("__AddMessage", "Message",objTokenKey)';
+        var url_messageaddcheck= '@Url.Action("__MessageAddCheck", "Message", objTokenKey)';
+    </script>
+</head>
+<body style="text-align:center">
+    <div class="easyui-panel" title="发布公告" style="width:100%" data-options="@SysController.__PublishTool(),iconCls:'icon-my_add',fit:true,border:false">
+        <table style="width:100%;margin-top:5px">
+            <tr>
+                <td class="rightTD">公告标题:</td>
+                <td class="leftTD" style="padding-left:20px"><input id="messagetitle" class="easyui-textbox" type="text" name="name" data-options="required:true" style="width:400px" /></td>
+            </tr>
+            <tr>
+                <td class="rightTD">通知内容:</td>
+                <td class="leftTD" style="padding-left:20px;padding-right:20px;">
+                    @Html.Partial("_RichEdit", new ViewDataDictionary { { "id", "kedit" }, { "w", "95%" }, { "h", "520px" }, { "t", "0" } })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <a id="add" class="easyui-linkbutton c1" data-options="iconCls:'icon-add'" style="width:80px;margin-top:10px" onclick="addmessage()">发布通知</a>
+                    <a id="cls" class="easyui-linkbutton c5" data-options="iconCls:'icon-clear'" style="width:80px;margin-left:80px" onclick="clearmessage()">清空内容</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Message/index.js"></script>
+</body>
+</html>

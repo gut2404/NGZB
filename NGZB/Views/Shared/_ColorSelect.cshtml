@@ -1,0 +1,40 @@
+﻿@*颜色选择器*@
+<select id="colorselect" style="width:50px" data-options="panelHeight:'auto'"></select>
+<div id="sp2">
+    <div style="padding:1px;">
+        <a class="colorselect easyui-linkbutton c1" style="width:45px">c1</a><br />
+        <a class="colorselect easyui-linkbutton c2" style="width: 45px">c2</a><br />
+        <a class="colorselect easyui-linkbutton c3" style="width:45px">c3</a><br />
+        <a class="colorselect easyui-linkbutton c4" style="width:45px">c4</a><br />
+        <a class="colorselect easyui-linkbutton c5" style="width:45px">c5</a><br />
+        <a class="colorselect easyui-linkbutton c6" style="width:45px">c6</a><br />
+        <a class="colorselect easyui-linkbutton c7" style="width:45px">c7</a><br />
+        <a class="colorselect easyui-linkbutton c8" style="width:45px">c8</a>
+    </div>
+    <input id="getcolor" type="hidden" value="" />
+</div>
+<script>
+    $(function () {
+        $("#getcolor").val("");
+        $('#colorselect').combo({
+            required: false,
+            editable: false
+        });
+        $('#sp2').appendTo($('#colorselect').combo('panel'));
+        $('.colorselect').click(function ()
+        {
+            var s = $(this).text();
+            $("#getcolor").val(s);
+            var cls = "easyui-linkbutton l-btn l-btm-small " + s;
+            $('#colorselect').combo('setValue', s).combo('setText', s).combo('hidePanel');
+            @{string btn = ViewData["btn"] == null ? "" : ViewData["btn"].ToString();}
+            if ('@btn'!='')
+            {
+                try
+                {
+                    $("#iconthemsbtn").attr("class", cls);
+                } catch (e) { };
+            }
+        });
+    });
+</script>

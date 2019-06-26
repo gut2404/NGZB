@@ -1,0 +1,35 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>设备上下线</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey();}
+    <script>
+        var url_updown = '@Url.Action("__OperateUpDown", "EquipMent", objTokenKey)';
+    </script>
+</head>
+<body>
+    <div style="text-align:left;color:blue;padding-left:10px">
+        <span id="eqname" style="text-align:left">
+            当前选择设备：@ViewBag.eqname
+        </span>
+    </div>
+    <div id="updowndiv" style="text-align:center;margin:5px;display:block">
+        <span id="updowntitle" style="text-align:center">
+        </span>
+        <input id="eqid" type="hidden" value="@ViewBag.eqid" />
+        <div style="margin-top:5px">
+            <input id="whyupdown" style="width:250px;height:150px" class="easyui-textbox" type="text" data-options="multiline:true,required:false" />
+            <div style="text-align:center;margin:5px">
+                <div id="alertInfo" style="text-align:left;color:red"></div>
+                <a id="opbtn" href="#" class="easyui-linkbutton toolbtn50 c2" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()" onclick="upDown();"></a>
+                <input id="opstate" type="hidden" value="@Request.QueryString["deltype"]" />
+            </div>
+        </div>
+    </div>
+    <script src="~/JsApp/EquipMent/_updowneq.js"></script>
+</body>
+</html>

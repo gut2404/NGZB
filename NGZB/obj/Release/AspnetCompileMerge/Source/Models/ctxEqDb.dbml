@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NGZB_db" Class="ctxEqDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=127.0.0.1;Initial Catalog=NGZB_db;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NGZB_dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.NGZB_EQ_O_OperateRule" Member="NGZB_EQ_O_OperateRule">
+    <Type Name="NGZB_EQ_O_OperateRule">
+      <Column Name="eqID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="companTitle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="operateName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="operateCode" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="operateNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="operateText" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isPass" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createUserCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="uplastDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.V_NGZB_EQ_BaseTree" Member="V_NGZB_EQ_BaseTree">
+    <Type Name="V_NGZB_EQ_BaseTree">
+      <Column Name="eqID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="eqParendID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="eqCode" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="eqName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="eqABC" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="eqInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="eqInstallDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="eqOrderBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqIcon" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="eqIsDel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nodeOpen" Type="System.String" DbType="VarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="eqClassID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqTypeSpecification" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="eqSupplier" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="eqManufacturer" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="eqClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="eqIsVirtual" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="nodeOpentxt" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="eqSpareparts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqMajor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.S_NGZB_EQ_BaseTree_GetChild" Method="S_NGZB_EQ_BaseTree_GetChild">
+    <Parameter Name="eqid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="S_NGZB_EQ_BaseTree_GetChildResult">
+      <Column Name="eqID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqParendID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqCode" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="eqName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="eqABC" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="eqInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="eqInstallDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="eqOrderBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqIcon" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="eqIsDel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="nodeOpen" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="eqClassID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqTypeSpecification" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.S_NGZB_EQ_BaseTree_GetParent" Method="S_NGZB_EQ_BaseTree_GetParent">
+    <Parameter Name="eqid" Type="System.Int32" DbType="Int" />
+    <ElementType Name="S_NGZB_EQ_BaseTree_GetParentResult">
+      <Column Name="eqID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqParendID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqCode" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="eqName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="eqABC" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="eqInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="eqInstallDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="eqOrderBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqIcon" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="eqIsDel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="nodeOpen" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="eqClassID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="eqTypeSpecification" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.U_NGZB_EQ_BaseTree_OperateIsDel" Method="U_NGZB_EQ_BaseTree_OperateIsDel">
+    <Parameter Name="eqID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="delType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="whyinfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="opearteType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opeartUser" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_EQ_BaseTree_Move" Method="U_NGZB_EQ_BaseTree_Move">
+    <Parameter Name="eqID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqParendID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="movewhy" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="opearteUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="opearteType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_EQ_PassABC" Method="I_NGZB_EQ_PassABC">
+    <Parameter Name="eqID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="abcID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="abcNum" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opearteType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opeartUser" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_EQ_O_OperateRule" Method="C_NGZB_EQ_O_OperateRule">
+    <Parameter Name="eqID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="companTitle" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="operateName" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="operateCode" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="operateNumber" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="operateText" Type="System.String" DbType="Text" />
+    <Parameter Name="createUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.I_NGZB_EQ_BaseTree" Method="I_NGZB_EQ_BaseTree">
+    <Parameter Name="eqParendID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqCode" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="eqName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="eqInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="eqInstallDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="eqIcon" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="eqOrderBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nodeOpen" Type="System.String" DbType="VarChar(6)" />
+    <Parameter Name="eqClassID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqTypeSpecification" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="eqSupplier" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="eqManufacturer" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="eqIsVirtual" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opearteUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="opearteType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqSpareparts" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqMajor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_EQ_BaseTree" Method="U_NGZB_EQ_BaseTree">
+    <Parameter Name="eqID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqCode" Type="System.String" DbType="VarChar(64)" />
+    <Parameter Name="eqName" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="eqInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="eqInstallDate" Type="System.DateTime" DbType="SmallDateTime" />
+    <Parameter Name="eqIcon" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="eqOrderBy" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nodeOpen" Type="System.String" DbType="VarChar(6)" />
+    <Parameter Name="eqClassID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqTypeSpecification" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="eqSupplier" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="eqManufacturer" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="eqIsVirtual" Type="System.Int32" DbType="Int" />
+    <Parameter Name="opearteUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="opearteType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqSpareparts" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqMajor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_EQ_O_DayCheckStand" Method="C_NGZB_EQ_O_DayCheckStand">
+    <Parameter Name="eqid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dayCheckTitle" Type="System.String" DbType="NVarChar(2000)" />
+    <Parameter Name="checkParts" Type="System.String" DbType="NVarChar(2000)" />
+    <Parameter Name="dayCheckInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="checkTypeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dayCheckTimeNum" Type="System.Double" DbType="Float" />
+    <Parameter Name="timeNumUnitID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dayCheckState" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="dayCheckMothed" Type="System.String" DbType="NVarChar(1000)" />
+    <Parameter Name="dayCheckStand" Type="System.String" DbType="NVarChar(2000)" />
+    <Parameter Name="dayCheckID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.C_NGZB_EQ_O_RepairStand" Method="C_NGZB_EQ_O_RepairStand">
+    <Parameter Name="repairID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="eqID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="repairTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="repairNum" Type="System.Double" DbType="Float" />
+    <Parameter Name="unitID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="repairInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="acceptStand" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="repairTime" Type="System.Double" DbType="Float" />
+    <Parameter Name="timeUnitID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="repairtitle" Type="System.String" DbType="NVarChar(2000)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

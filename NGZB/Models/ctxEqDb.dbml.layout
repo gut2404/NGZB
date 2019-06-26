@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ctxEqDb">
+  <DataContextMoniker Name="/ctxEqDbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fa5a5a47-7862-4ef8-9e79-6a27ac2bab05" isExpanded="false" absoluteBounds="2.75, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ctxEqDbDataContext/NGZB_EQ_O_OperateRule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="153b27f9-d275-4452-b5d0-094f02520644" absoluteBounds="2.765, 0.96, 1.9700000000000002, 1.901275634765625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4d5dbbde-1825-41d6-85e8-ce51428f4da2" isExpanded="false" absoluteBounds="0.625, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ctxEqDbDataContext/V_NGZB_EQ_BaseTree" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5e167c58-e391-42be-817c-6449fb9dd800" absoluteBounds="0.64000000000000012, 0.96, 1.9700000000000002, 3.934010823567708" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

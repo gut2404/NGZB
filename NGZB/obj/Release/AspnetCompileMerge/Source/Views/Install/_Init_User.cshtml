@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ string str = "注册用户";}
+    <script src="~/Scripts/jQuery.md5.js"></script>
+    <title>《@str》初始化</title>
+    <script>
+        var url = '@Url.Action("__InitUser", "Install")';
+    </script>
+</head>
+<body>
+    <div style="width:100%;text-align:center">
+        <table style="width:100%;margin-top:30px">
+            <tr>
+                <td colspan="2" style="text-align:center;font-size:16pt;color:blue">
+                    《@str》初始化
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <ul style="color:red">
+                        <li style="padding:5px">
+                            注意： 《@str》初始化后将删除系统所有注册用户,同时清理所有用户的登录记录、在线状态及授权等信息；
+                        </li>
+                        <li style="padding:5px">
+                            需要提供一个默认的管理员，对系统进行基本设置，请填写以下信息设置默认管理员；
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr style="margin-top:30px">
+                <td style="width:40%;text-align:right">
+                    登录名:
+                </td>
+                <td style="text-align:left">
+                    <input id="userCode" class="easyui-textbox" type="text" name="userCode" data-options="required:true,iconCls:'icon-man',iconAlign:'right'">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:30%;text-align:right">
+                    姓名:
+                </td>
+                <td style="text-align:left">
+                    <input id="userName" class="easyui-textbox" type="text" name="userName" data-options="required:true,iconCls:'icon-man',iconAlign:'right'">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:40%;text-align:right">
+                    密码:
+                </td>
+                <td style="text-align:left">
+                    <input id="password" class="easyui-textbox" type="password" name="passWord" data-options="required:true,iconCls:'icon-lock',iconAlign:'right'">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:40%;text-align:right">
+                    确认密码:
+                </td>
+                <td style="text-align:left">
+                    <input id="password2" class="easyui-textbox" type="password" name="passWord2" data-options="required:true,iconCls:'icon-lock',iconAlign:'right'">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:40%;text-align:right">
+                    部门:
+                </td>
+                <td style="text-align:left">
+                    <input id="cc" class="easyui-combotree" data-options="url:'@Url.Action("__GetGroup","Install")',method:'get',lines:'true',required:true,panelHeight:'auto',iconCls:'icon-my_dpmap',iconAlign:'right'" style="width:150px;">
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align:center;margin-top:25px">
+            <a style="width:20%" href="javascript:;" class="easyui-linkbutton" iconAlign="top" iconCls="icon-my_del" onclick="okActive();">《@str》初始化</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Install/_init_user.js"></script>
+</body>
+</html>

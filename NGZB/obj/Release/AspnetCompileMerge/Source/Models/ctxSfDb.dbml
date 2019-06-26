@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NGZB_db" Class="ctxSfDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(local)\;Initial Catalog=NGZB_db;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NGZB_dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.V_NGZB_Harm" Member="V_NGZB_Harm">
+    <Type Name="V_NGZB_Harm">
+      <Column Name="safeHarmID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="securityInfo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="defendAgainst" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="workUseCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="workTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="wordTypeName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.S_NGZB_SF_Harm" Method="S_NGZB_SF_Harm">
+    <Parameter Name="searchkey" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="workTypeID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="S_NGZB_SF_HarmResult">
+      <Column Name="safeHarmID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="securityInfo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="defendAgainst" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="wordTypeName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.I_NGZB_SF_Harm" Method="I_NGZB_SF_Harm">
+    <Parameter Name="workTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="securityInfo" Type="System.String" DbType="Text" />
+    <Parameter Name="defendAgainst" Type="System.String" DbType="Text" />
+    <Parameter Name="opUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.U_NGZB_SF_Harm" Method="U_NGZB_SF_Harm">
+    <Parameter Name="safeHarmID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="workTypeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="securityInfo" Type="System.String" DbType="Text" />
+    <Parameter Name="defendAgainst" Type="System.String" DbType="Text" />
+    <Parameter Name="opUserCode" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="rt" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

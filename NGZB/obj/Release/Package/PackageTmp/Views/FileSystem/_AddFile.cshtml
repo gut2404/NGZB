@@ -1,0 +1,45 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>文件上传</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script type="text/javascript">
+        var _documentid = '@ViewBag.doucmentID';
+        var _upok = '@ViewBag.upok';
+        var url_addfile = '@Url.Action("_AddFile", "FileSystem", objTokenKey)';
+    </script>
+</head>
+<body style="text-align:center;overflow:hidden;">
+    <form id="ff" name="ff" action="" method="post" enctype="multipart/form-data">
+        <table cellpadding="5" style="width:500px">
+            <tr>
+                <td class="rightTD">目录ID:</td>
+                <td class="leftTD"><input id="documentID" class="easyui-textbox" type="text" name="documentID" data-options="required:true" style="width:80px" disabled="disabled" /></td>
+            </tr>
+            <tr>
+                <td class="rightTD">目录名称:</td>
+                <td class="leftTD"><input id="documentName" class="easyui-textbox" type="text" name="documentName" data-options="required:true" style="width:180px" disabled="disabled" /></td>
+            </tr>
+            <tr>
+                <td class="rightTD">文件描述:</td>
+                <td class="leftTD"><input id="documentInfo" class="easyui-textbox" name="documentInfo" data-options="multiline:true" style="height:75px;width:350px" /></td>
+            </tr>
+            <tr>
+                <td class="rightTD">选择文件:</td>
+                <td class="leftTD">
+                    @Html.Partial("_FileSelect")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <a id="up" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-my_up'" onclick="submitForm()">上传文件</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script src="~/JsApp/FileSystem/_addfile.js"></script>
+</body>
+</html>

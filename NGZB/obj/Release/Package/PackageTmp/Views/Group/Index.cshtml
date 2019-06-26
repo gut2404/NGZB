@@ -1,0 +1,78 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>组织机构管理</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script src="~/Scripts/jquery.etree.js"></script>
+    <script src="~/Scripts/jquery.etree.lang.js"></script>
+    <script>
+        var url_add = '@Url.Action("_Add", "Group",objTokenKey)';
+        var url_edit = '@Url.Action("_Edit", "Group",objTokenKey)';
+        var url_redo = '@Url.Action("__Redo", "Group", objTokenKey)';
+        var url_del = '@Url.Action("__Del", "Group", objTokenKey)';
+        var url_setroot = '@Url.Action("__SetRoot", "Group", objTokenKey)';
+        var url_movegroup = '@Url.Action("__MoveGroup", "Group", objTokenKey)';
+    </script>
+    <style>
+        .leftli {
+            margin: 10px 30px 10px 30px;
+        }
+    </style>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'west',iconCls:'icon-my_doucment',split:false,collapsible:false" title="组织机构树" style="width:250px;">
+        <div data-options="fit:true" id="groupDiv" class="easyui-panel" style="padding:1px;border:0px;text-align:left;height:100%">
+            <ul id="tree" style="border:0px;border-color:white" class="easyui-tree" data-options="url:'@Url.Action("__GetAll","Group", objTokenKey)', method:'post',animate:true,lines:true,formatter:parentNum"></ul>
+        </div>
+    </div>
+    <div data-options="@SysController.__PublishTool(),region:'center',title:'组织机构管理操作说明',iconCls:'icon-my_duc'">
+        <div style="height:100%;border:0px;border-color:white;overflow:hidden">
+            <ul style="margin-top:30px">
+                <li class="leftli">
+                    在组织机构树上点击右键进行相应的操作！
+                </li>
+                <li class="leftli">
+                    节点数字说明：节点前<strong style="color:red">[数字]</strong>表示该节点的排序，数字越小越靠前；节点后<strong style="color:red">(数字)</strong>表示该节点具有的子节点，该数字自动生成，仅给予提示！
+                </li>
+                <li class="leftli">
+                    特殊节点图标说明：节点前图标显示<img src="~/Content/themes/icons/no.png" style="line-height:16px;height:16px" alt="已删除组织节点" />图标，表示该组织节点已被删除，可以通过恢复来还原该组织节点及其所有次级节点！
+                </li>
+                <li class="leftli">
+                    添加次级节点：为选中的组织节点添加次级节点！
+                </li>
+                <li class="leftli">
+                    添加顶级节点：无法直接添加一个顶级组织节点，你可以添加一个任意次级节点，将其设置为顶级节点来完成！
+                </li>
+                <li class="leftli">
+                    编辑当前节点：编辑所选组织节点（名称、图标、排序)！
+                </li>
+                <li class="leftli">
+                    移动组织节点：选中要移动的组织节点，按住左键移动到目标节点即可完成机构移动！
+                </li>
+                <li class="leftli" style="color:red;">
+                    删除组织：删除组织后该组织的所有次级组织及所属于人员及人员都将被软删除，且人员具有的权限被硬删除；你可以通过恢复来还原该组织，还原后该组织的所有次级组织及人员都将被恢复，但是人员具有的权限不能被恢复，要重新进行授权，请谨慎操作删除及恢复！
+                </li>
+                <li class="leftli">
+                    设为顶级：如果你将一个顶级组织节点移动变成了次级组织节点，将不能再通过移动方式将其变为顶级组织节点，可以通过设为顶级将其变为顶级节点！
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="mm" class="easyui-menu" style="width:80px;">
+        <div id="btnAdd" data-options="iconCls:'icon-add'" onclick="add();">添加次级节点</div>
+        <div id="btnEdit" data-options="iconCls:'icon-edit'" onclick="edit();">编辑当前节点</div>
+        <div id="del1" class="menu-sep"></div>
+        <div id="del2" data-options="iconCls:'icon-no'" onclick="confirmDel();" style="color:red;">删除节点(注意)</div>
+        <div id="redo2" data-options="iconCls:'icon-redo'" onclick="confirmRedo();">恢复当前节点</div>
+        <div id="redo3" class="menu-sep"></div>
+        <div id="btnroot" data-options="iconCls:'icon-my_root'" onclick="setRoot();">设为顶级节点</div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Group/index.js"></script>
+</body>
+</html>

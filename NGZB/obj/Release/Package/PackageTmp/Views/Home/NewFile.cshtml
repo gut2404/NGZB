@@ -1,0 +1,31 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{var objTokenKey = SysController.__TokenKey();}
+    <title>最新文件</title>
+    <script>
+        var url_downfile = '@Url.Action("__DownFile", "FileSystem",objTokenKey)';
+    </script>
+</head>
+<body>
+    <table id="dgnew" class="easyui-datagrid" title="最新文件"
+           data-options="@SysController.__PublishTool(),iconCls:'icon-my_doucment',fit:true,rownumbers:false,singleSelect:true,striped:true,pagination:false,url: '@Url.Action("__GetNewFileList","FileSystem",objTokenKey)',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,onLoadSuccess:function(data){formatlinbutton();},fitColumns:true,border:false">
+        <thead>
+            <tr style="width:100%">
+                <th field="fileName" width="300" align="left">文件名</th>
+                <th data-options="field:'fileInfo',width:450,align:'left',halign:'center',hidden:@SysController.__FileInfoHidden()">文件描述</th>
+                <th field="userName" width="50" align="center">上传人</th>
+                <th field="fileUpDate" width="105" align="center" sortable="true">上传时间</th>
+                <th data-options="field:'fileID',width:50,align:'center',halign:'center',formatter:urlformat">下载</th>
+            </tr>
+        </thead>
+    </table>
+        @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Home/newfile.js"></script>
+</body>
+</html>

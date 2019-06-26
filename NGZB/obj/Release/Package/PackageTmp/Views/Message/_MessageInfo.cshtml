@@ -1,0 +1,15 @@
+﻿@using NGZB.Controllers
+@Html.Partial("_JsCss")
+<div id="p" class="easyui-panel" title="《@ViewBag.msgtitle》详细内容" style="width:100%;padding:10px;" data-options="fit:true,iconCls:'icon-my_bell',collapsible:false,minimizable:false,maximizable:false,closable:false">
+    <div>@Html.Raw(ViewBag.msg)</div>
+    <input id="msgid" type="hidden" value="@ViewBag.msgid" />
+</div>
+<div id="tt">
+    <a id="delbtn" href="javascript:void(0)" class="icon-no" onclick="javascript:del()" style="padding-right:50px"></a>
+</div>
+@{ var objTokenKey = SysController.__TokenKey(); }
+<script>
+    var url_delmessage = '@Url.Action("__DelMessage", "Message", objTokenKey)';
+    var _ismy = '@ViewBag.ismy';
+</script>
+<script src="~/JsApp/Message/_messageinfo.js"></script>

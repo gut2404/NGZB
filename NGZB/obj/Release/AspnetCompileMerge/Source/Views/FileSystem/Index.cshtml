@@ -1,0 +1,46 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>共享文件</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_downfile = '@Url.Action("__DownFile", "FileSystem", objTokenKey)';
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'west',iconCls:'icon-my_doucment',split:false,collapsible:false" title="文件目录树" style="width:180px;border-bottom:none;border-left:none;border-top:none">
+        <div class="easyui-panel" data-options="fit:true,border:false" style="padding:1px;border:none;text-align:left;">
+            <ul id="tree" class="easyui-tree" data-options="url:'@Url.Action("__GetDocumentTree","FileSystem", objTokenKey)',method:'get',animate:true,lines:true,formatter:parentNum"></ul>
+        </div>
+    </div>
+    <div data-options="region:'center',title:'',iconCls:'icon-my_duc',border:false">
+        <table id="dg" class="easyui-datagrid" title="当前选择目录：未选择" style="width:100%;border:0px;border-color:white"
+               data-options="@SysController.__PublishTool(),iconCls:'icon-my_doucment',fit:true,rownumbers:false,singleSelect:true,pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,url: '@Url.Action("__GetFileList","FileSystem", objTokenKey)',toolbar:'#tb',onLoadSuccess:function(data){formatlinbutton();},fitColumns:true,nowrap:false,striped:true,border:false">
+            <thead>
+                <tr style="width:100%">
+                    <th field="fileName" width="300" align="left">文件名</th>
+                    <th data-options="field:'fileInfo',width:420,align:'left',halign:'center',hidden:@SysController.__FileInfoHidden()">文件描述</th>
+                    <th field="userName" width="60" align="center">上传人</th>
+                    <th field="fileUpDate" width="110" align="center">上传日期</th>
+                    <th data-options="field:'fileID',width:60,align:'center',halign:'center',formatter:urlformat">下载</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="tb">
+            <div style="margin:2px">
+                <div class="fa fa-file-text-o mylabel"> 输入文件名称或者描述关键字：</div>
+                <input id="searchkey" class="easyui-textbox" style="width:200px;height:25px">
+                <a href="javascript:search();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()">查询</a>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/FileSystem/index.js"></script>
+</body>
+</html>
+

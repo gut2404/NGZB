@@ -1,0 +1,30 @@
+﻿@*日期选择*@
+@{ string etID = ViewData["id"] == null ? "et1" : ViewData["id"].ToString();
+    int addDay = 0;
+    if (ViewData["d"] != null)
+    {
+        int.TryParse(ViewData["d"].ToString(), out addDay);
+    }
+}
+<input id="@etID" style="width:100px" class="easyui-datebox" data-options="formatter:myformatterdate,parser:myparserdate" />
+<script type="text/javascript">
+    $(function ()
+    {
+        var etid = '@etID';
+        if (etid == "")
+        {
+            etid = '#et1';
+        }
+        else
+        {
+            etid = '#' + etid;
+        }
+        var curr_time = new Date();
+        curr_time.setDate(curr_time.getDate() +@addDay);
+        var strDate = curr_time.getFullYear() + "-";
+        strDate += curr_time.getMonth() + 1 + "-";
+        strDate += curr_time.getDate() + "-";
+        $(etid).datebox({ editable: false });
+        $(etid).datebox("setValue", strDate);
+    });
+</script>

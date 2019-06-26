@@ -1,0 +1,121 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>我的消息</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_getuser = '@Url.Action("__GetUser", "MyMsg",objTokenKey)';
+        var url_sendmessage = '@Url.Action("__SendMessage","MyMsg", objTokenKey)';
+        var url_getmsginfo = '@Url.Action("_GetMsgInfo", "MyMsg",objTokenKey)';
+        var url_getnoreadmsg = '@Url.Action("__GetNoReadMsg", "MyMsg",objTokenKey)';
+        var url_delrecmsg = '@Url.Action("__DelRecMsg","MyMsg", objTokenKey)';
+        var url_delsendmsg = '@Url.Action("__DelSendMsg", "MyMsg",objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="tabs" class="easyui-tabs" data-options="fit:true,border:false">
+        <div title="收件箱" style="padding:2px">
+            <table id="recbox" class="easyui-datagrid" style="width:100%;height:100%"
+                   data-options="singleSelect:false,collapsible:false,url:'@Url.Action("__RecMsgBox", "MyMsg",objTokenKey)',method:'post',fit:true,toolbar:'#tb1',fitColumns:true,nowrap:false,striped:true,pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,border:false">
+                <thead>
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true" align="center"></th>
+                        <th data-options="field:'personMsgID',width:60,align:'center'">ID</th>
+                        <th data-options="field:'msgtitle',width:500,halign:'center',align:'left',formatter:titleformat">消息标题</th>
+                        <th data-options="field:'sendUserName',width:80,align:'center'">发送人</th>
+                        <th data-options="field:'sendDate',width:110,align:'center'">发送时间</th>
+                        <th data-options="field:'readState',width:60,align:'center',formatter:textFormat,styler:cellStyler">阅读状态</th>
+                        <th data-options="field:'fileUrl',width:60,align:'center'">附件</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div title="发件箱" style="padding:2px">
+            <table id="sendbox" class="easyui-datagrid" style="width:100%;height:100%"
+                   data-options="singleSelect:false,collapsible:false,url:'@Url.Action("__SendMsgBox", "MyMsg", objTokenKey)',method:'post',fit:true,toolbar:'#tb2',fitColumns:true,nowrap:false,striped:true,pagination:true,loadFilter:pagerFilter,pageSize:20,border:false">
+                <thead>
+                <thead>
+                    <tr>
+                        <th data-options="field:'ck',checkbox:true" align="center"></th>
+                        <th data-options="field:'personMsgID',width:60,align:'center'">ID</th>
+                        <th data-options="field:'msgtitle',width:500,halign:'center',align:'left',formatter:titleformatsend">消息标题</th>
+                        <th data-options="field:'recUserName',width:80,align:'center'">接收人</th>
+                        <th data-options="field:'readDate',width:110,align:'center'">阅读时间</th>
+                        <th data-options="field:'readState',width:60,align:'center',formatter:textFormat,styler:cellStyler">阅读状态</th>
+                        <th data-options="field:'fileUrl',width:60,align:'center'">附件</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div title="发送信息">
+            <table style="width:100%;margin-top:5px">
+                <tr>
+                    <td class="rightTD">消息标题:</td>
+                    <td class="leftTD" style="padding-left:20px">
+                        <input id="messagetitle" class="easyui-textbox" type="text" name="name" data-options="required:true" style="width:400px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rightTD">选择收件人:</td>
+                    <td class="leftTD" style="padding-left:20px">
+                        @Html.Partial("_Department")
+                        <input class="easyui-combobox" id="usercode" data-options="multiple:true,valueField:'userCode',textField:'userName',panelHeight:'auto',iconCls:'icon-man',panelWidth:'80px'" style="width:200px">
+                        <div class="fa fa-file-text-o mylabel"> 多选可以同时发送给多人,选择以后在空白区域点击收回选择框</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rightTD">消息内容:</td>
+                    <td class="leftTD" style="padding-left:20px;padding-right:20px;">@Html.Partial("_SimpleEdit", new ViewDataDictionary { { "id", "kedit" }, { "h", "480px" }, { "t", "0" } })</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center">
+                        <a id="add" class="easyui-linkbutton c1" data-options="iconCls:'icon-add'" style="width:80px;margin-top:10px" onclick="sendmessage()">发送消息</a>
+                        <a id="cls" class="easyui-linkbutton c5" data-options="iconCls:'icon-clear'" style="width:80px;margin-left:80px" onclick="clearmessage()">清空内容</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="tb1" style="text-align:center">
+        <div style="margin:2px">
+            <div class="fa fa-file-text-o mylabel"> 输入消息标题、内容或者接收者关键字：</div>
+            <input id="searchreckey" class="easyui-textbox" style="width:200px;height:25px">
+            <div class="fa fa-filter mylabel" data-options="plain:true">接收时间从：</div>
+            @Html.Partial("_DateSelect", new ViewDataDictionary { { "id", "st1" }, { "d", "-7" } })
+            <div class="fa fa-filter mylabel" data-options="plain:true">到：</div>
+            @Html.Partial("_DateSelect", ViewData["id"] = "et1")
+            <select id="readtype1" class="easyui-combobox" name="state" style="width:80px" data-options="panelHeight:'auto'">
+                <option value="-1">全部</option>
+                <option value="1">已读</option>
+                <option value="0">未读</option>
+            </select>
+            <a href="javascript:searchRecBox();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()" style="margin-left:10px">查询</a>
+            <a href="javascript:delMsg('r');" class="easyui-linkbutton c3" iconCls="icon-no" plain="@SysController.__ThemsType()" style="margin-left:10px">删除</a>
+        </div>
+    </div>
+    <div id="tb2" style="text-align:center">
+        <div style="margin:2px">
+            <div class="fa fa-file-text-o mylabel"> 输入消息标题、内容或者发送者关键字：</div>
+            <input id="searchsendkey" class="easyui-textbox" style="width:200px;height:25px">
+            <div class="fa fa-filter mylabel" data-options="plain:true">发送时间从：</div>
+            @Html.Partial("_DateSelect", new ViewDataDictionary { { "id", "st2" }, { "d", "-7" } })
+            <div class="fa fa-filter mylabel" data-options="plain:true">到：</div>
+            @Html.Partial("_DateSelect", ViewData["id"] = "et2")
+            <select id="readtype2" class="easyui-combobox" name="state" style="width:80px" data-options="panelHeight:'auto'">
+                <option value="-1">全部</option>
+                <option value="1">已读</option>
+                <option value="0">未读</option>
+            </select>
+            <a href="javascript:searchSendBox();" class="easyui-linkbutton c2" iconCls="icon-search" plain="@SysController.__ThemsType()" style="margin-left:10px">查询</a>
+            <a href="javascript:delMsg('s');" class="easyui-linkbutton c3" iconCls="icon-no" plain="@SysController.__ThemsType()" style="margin-left:10px">删除</a>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/MyMsg/index.js"></script>
+</body>
+</html>

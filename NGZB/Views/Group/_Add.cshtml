@@ -1,0 +1,51 @@
+﻿@using NGZB.Controllers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加组织节点</title>
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_add = '@Url.Action("__Add", "Group", objTokenKey)';
+    </script>
+</head>
+<body>
+    <div id="addDiv" style="display:block;padding:10px">
+        <table cellpadding="5">
+            <tr>
+                <td>上级组织节点ID:</td>
+                <td>
+                    <input id="txtGroupId" style="width:60px" class="easyui-textbox" type="text" name="name" disabled="disabled" value="@ViewBag.groupid" data-options="required:false" />
+                </td>
+            </tr>
+            <tr>
+                <td>上级组织节点名称:</td>
+                <td><input id="txtGroupName" style="width:160px" class="easyui-textbox" type="text" name="name" disabled="disabled" value="@ViewBag.groupname" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>新组织节点名称:</td>
+                <td><input id="txtGroupNameNew" style="width:160px" class="easyui-textbox" type="text" name="name" value="" data-options="required:false" /></td>
+            </tr>
+            <tr>
+                <td>图标:</td>
+                <td>
+                    @Html.Partial("_IconSelect", ViewData["w"] = "180")
+                </td>
+            </tr>
+            <tr>
+                <td>排序:</td>
+                <td>
+                    <input id="txtOrderby" style="width:60px" class="easyui-textbox" type="text" name="name" value="1" data-options="required:false" />
+                </td>
+            </tr>
+        </table>
+        <div style="text-align:center;padding:15px 5px 5px 5px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="subcchange();">确认添加</a>
+        </div>
+    </div>
+    <script src="~/JsApp/Group/_add.js"></script>
+</body>
+</html>

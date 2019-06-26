@@ -1,0 +1,51 @@
+﻿@using NGZB.Controllers
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_JsCss")
+    @{ var objTokenKey = SysController.__TokenKey(); }
+    <script>
+        var url_addharm = '@Url.Action("_AddHarm","Safe",objTokenKey)';
+        var url_editharm='@Url.Action("_EditHarm", "Safe", objTokenKey);'
+    </script>
+    <title>危害因素管理</title>
+</head>
+<body>
+    <table id="tt" class="easyui-datagrid" title="风险因素管理" style="width:100%"
+           url="@Url.Action("__GetSafeStand", "Safe", objTokenKey)"
+           singleSelect="true" iconCls="icon-my_bomb" 
+           data-options="@SysController.__PublishTool(),toolbar:'#tb',pagination:true,pageSize:@SysController.__PageSize(),loadFilter:pagerFilter,fitColumns:true,striped:false,border:false,fit:true">
+        <thead>
+            <tr>
+                <th data-options="field:'safeHarmID',width:60,align:'center'">ID</th>
+                <th data-options="field:'wordTypeName',width:80,align:'center'">作业类型</th>
+                <th data-options="field:'securityInfo',width:350,halign:'center',align:'left'">危害因素</th>
+                <th data-options="field:'defendAgainst',width:450,halign:'center',align:'left'">防范措施</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb">
+        <div style="padding:2px">
+            <a href="javascript:;" class="easyui-linkbutton toolbtn50" iconCls="icon-add" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()" onclick="addHarm();">添加</a>
+            <a href="javascript:;" class="easyui-linkbutton toolbtn50" style="margin:0px 10px" iconCls="icon-edit" iconAlign="@SysController.__IconAlign()" plain="@SysController.__ThemsType()" onclick="editHarm();">修改</a>
+            <div class="fa fa-file-text-o mylabel" style="padding-left:10px">
+                <span style="padding-left:2px">输入条件查询：</span>
+                <input id="harmtypeid" class="easyui-combobox"
+                       name="language"
+                       data-options="
+                       url:'@Url.Action("__GetWorkType","Safe",objTokenKey)',
+				       method:'get',
+				       valueField:'id',
+					   textField:'text',
+					   panelHeight:'auto',
+                       editable: false">
+                <input class="easyui-searchbox" data-options="prompt:'输入作业类型、危害因素、防范措施关键词查询',searcher:doSearch" style="width:400px" />
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_PublishTool")
+    <script src="~/JsApp/Safe/harm.js"></script>
+</body>
+</html>
